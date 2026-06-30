@@ -1,0 +1,71 @@
+/* ============================================================
+   TYPOGRAPHY TOKENS
+   Serif (Newsreader)  — editorial display + long-form reading
+   Sans  (Hanken Grotesk) — UI, nav, labels, captions
+   Mono  (JetBrains Mono) — code, technical tags, eyebrows
+   ============================================================ */
+:root {
+  /* --- families --- */
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* --- type scale (px, fluid-friendly) --- */
+  --text-2xs: 11px;
+  --text-xs:  12px;
+  --text-sm:  14px;
+  --text-base:16px;
+  --text-md:  18px;
+  --text-lg:  21px;
+  --text-xl:  26px;
+  --text-2xl: 33px;
+  --text-3xl: 42px;
+  --text-4xl: 54px;
+  --text-5xl: 68px;
+  --text-6xl: 84px;
+
+  /* --- weights --- */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* --- line heights --- */
+  --leading-tight:   1.08;  /* display headings */
+  --leading-snug:    1.25;  /* sub-headings */
+  --leading-normal:  1.5;   /* UI text */
+  --leading-relaxed: 1.72;  /* long-form serif body */
+
+  /* --- tracking --- */
+  --tracking-tight:  -0.02em;  /* large serif display */
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;   /* sans labels */
+  --tracking-mono:   0.02em;   /* mono eyebrows */
+  --tracking-caps:   0.14em;   /* uppercase eyebrow labels */
+
+  /* ============================================================
+     SEMANTIC TYPE ROLES
+     ============================================================ */
+  /* eyebrow / kicker — mono uppercase */
+  --type-eyebrow-family:   var(--font-mono);
+  --type-eyebrow-size:     var(--text-xs);
+  --type-eyebrow-weight:   var(--weight-medium);
+  --type-eyebrow-tracking: var(--tracking-caps);
+
+  /* display headline — serif */
+  --type-display-family:   var(--font-serif);
+  --type-display-weight:   var(--weight-light);
+  --type-display-leading:  var(--leading-tight);
+  --type-display-tracking: var(--tracking-tight);
+
+  /* body — long-form serif */
+  --type-prose-family:   var(--font-serif);
+  --type-prose-size:     var(--text-lg);
+  --type-prose-leading:  var(--leading-relaxed);
+
+  /* UI / chrome — sans */
+  --type-ui-family:   var(--font-sans);
+  --type-ui-size:     var(--text-sm);
+  --type-ui-leading:  var(--leading-normal);
+}

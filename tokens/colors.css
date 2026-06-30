@@ -1,0 +1,61 @@
+/* ============================================================
+   COLOR TOKENS — warm paper + ink, single terracotta signal.
+   Editorial / research-paper palette. No gradients, no slop.
+   ============================================================ */
+:root {
+  /* --- base: paper surfaces (warm off-white) --- */
+  --paper:         #FBF9F4;  /* page background */
+  --paper-raised:  #F4F0E8;  /* raised card / code block */
+  --paper-sunken:  #EDE8DD;  /* inset wells, hover rows */
+  --paper-pure:    #FFFFFF;  /* the rare true-white card */
+
+  /* --- base: ink (warm near-black -> faint) --- */
+  --ink:        #1B1A16;  /* primary text, headings */
+  --ink-muted:  #56524A;  /* secondary text */
+  --ink-faint:  #908B7E;  /* captions, meta, disabled */
+  --ink-ghost:  #B8B2A4;  /* placeholder, faintest marks */
+
+  /* --- base: hairlines --- */
+  --hairline:        #E5E0D5;  /* default 1px rule / border */
+  --hairline-strong: #D4CDBE;  /* emphasized divider */
+
+  /* --- base: terracotta signal (the one accent) --- */
+  --clay:        #BB4A2C;  /* links, active states, marks */
+  --clay-hover:  #9C3A1F;  /* hover / pressed */
+  --clay-wash:   #F5E7DF;  /* subtle accent background */
+
+  /* --- base: ink-blue (secondary technical accent, used sparingly) --- */
+  --cobalt:      #2A4B8D;  /* code-token highlights, info */
+  --cobalt-wash: #E7ECF5;
+
+  /* --- semantic status (muted, editorial) --- */
+  --positive:      #4A7A52;
+  --positive-wash: #E6EEE5;
+  --warning:       #B07A1E;
+  --warning-wash:  #F5ECD8;
+
+  /* ============================================================
+     SEMANTIC ALIASES — reference these in components
+     ============================================================ */
+  --surface-page:    var(--paper);
+  --surface-card:    var(--paper);
+  --surface-raised:  var(--paper-raised);
+  --surface-sunken:  var(--paper-sunken);
+  --surface-invert:  var(--ink);
+
+  --text-strong:  var(--ink);
+  --text-body:    var(--ink-muted);
+  --text-muted:   var(--ink-faint);
+  --text-ghost:   var(--ink-ghost);
+  --text-invert:  var(--paper);
+  --text-accent:  var(--clay);
+
+  --border-default: var(--hairline);
+  --border-strong:  var(--hairline-strong);
+  --border-accent:  var(--clay);
+
+  --link:        var(--clay);
+  --link-hover:  var(--clay-hover);
+
+  --focus-ring:  var(--clay);
+}

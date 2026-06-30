@@ -1,0 +1,8 @@
+/* ============================================================
+   FONTS — loaded from Google Fonts CDN
+   Newsreader  : editorial serif (display headings + long-form blog body)
+   Hanken Grotesk : UI / nav / labels sans
+   JetBrains Mono : code, technical tags, eyebrow labels
+   NOTE: substituted from CDN — see readme. Swap to local woff2 if desired.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
