@@ -156,7 +156,7 @@ function NemotronPost() {
 
       <hr style={{ border: 0, borderTop: '1px solid var(--hairline)', margin: '44px 0 28px' }} />
       <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--ink-faint)' }}>
-        The full code — LoRA config, submission pipeline, RAFT loop — is in the <a href="https://github.com/ramprasathk07/Kaggle-Nemotron" style={{color:'var(--clay)'}}>Kaggle-Nemotron repo</a>. Originally posted on <a href="https://medium.com/@ramk612000/chasing-0-90-on-a-30b-reasoning-model-nvidia-nemotron-our-approach-honestly-ef3f7ba12e46" style={{color:'var(--clay)'}}>Medium</a>.
+        The full code — LoRA config, submission pipeline, RAFT loop — is in the <a href="https://github.com/ramprasathk07/Kaggle-Nemotron" style={{color:'var(--clay)'}}>Kaggle-Nemotron repo</a>. Originally posted on <a href="https://medium.com/me/stories?tab=posts-published" style={{color:'var(--clay)'}}>Medium</a>.
       </p>
     </div>
   );

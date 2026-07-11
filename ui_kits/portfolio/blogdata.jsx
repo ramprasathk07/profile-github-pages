@@ -17,7 +17,7 @@ const POSTS = [
     dek: 'The strategy we walked in with, the wall we hit at 0.85, every regression we earned, and what we\'d do differently. A story about a Kaggle competition where the model fought back.',
     date: 'Jun 2026',
     readingTime: '8 min read',
-    mediumUrl: 'https://medium.com/@ramk612000/chasing-0-90-on-a-30b-reasoning-model-nvidia-nemotron-our-approach-honestly-ef3f7ba12e46',
+    mediumUrl: 'https://medium.com/me/stories?tab=posts-published',
   },
   {
     slug: 'triplequant',
