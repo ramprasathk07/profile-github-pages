@@ -2,13 +2,31 @@
 
 const POSTS = [
   {
+    slug: 'loss-curve-lied',
+    topic: 'Fine-tuning',
+    title: 'My loss curve said 0.027. My model wouldn\'t stop talking. Part — I',
+    dek: 'A finetuning post-mortem, or: how a dashboard lied to me for three epochs.',
+    date: 'Jul 2026',
+    readingTime: '8 min read',
+    mediumUrl: 'https://medium.com/@ramk612000/my-loss-curve-said-0-027-my-model-wouldnt-stop-talking-part-i-6fd58780f8dc',
+    featured: true,
+  },
+  {
+    slug: 'mamba-moe-postmortem',
+    topic: 'Fine-tuning',
+    title: 'Fine-Tuning a 30B Hybrid-Mamba MoE on One GPU: A Technical Post-Mortem',
+    dek: 'How we LoRA-tuned NVIDIA\'s Nemotron-3-Nano-30B-A3B for a deterministic-reasoning benchmark, the three submission-killing bugs nobody warns you about, and why the model architecture, not the optimizer, decided what was possible.',
+    date: 'Jul 2026',
+    readingTime: '10 min read',
+    mediumUrl: 'https://medium.com/@ramk612000/fine-tuning-a-30b-hybrid-mamba-moe-on-one-gpu-a-technical-post-mortem-f847b59155cf',
+  },
+  {
     slug: 'vllm-internals',
     topic: 'Inference',
     title: 'How vLLM works internally — a deep dive',
     dek: 'PagedAttention, continuous batching, and the block manager, from first principles — and why they let one GPU serve far more requests than naive decoding.',
     date: 'Jun 2026',
     readingTime: '12 min read',
-    featured: true,
   },
   {
     slug: 'nemotron-reasoning',
@@ -17,7 +35,7 @@ const POSTS = [
     dek: 'The strategy we walked in with, the wall we hit at 0.85, every regression we earned, and what we\'d do differently. A story about a Kaggle competition where the model fought back.',
     date: 'Jun 2026',
     readingTime: '8 min read',
-    mediumUrl: 'https://medium.com/me/stories?tab=posts-published',
+    mediumUrl: 'https://medium.com/@ramk612000/chasing-0-90-on-a-30b-reasoning-model-nvidia-nemotron-our-approach-honestly-ef3f7ba12e46',
   },
   {
     slug: 'triplequant',
