@@ -18,10 +18,19 @@ function Icon({ name, size = 16, stroke = 2, style = {} }) {
   return <span ref={ref} style={{ display: 'inline-flex', width: size, height: size, color: 'currentColor', ...style }} className="lucide-host" />;
 }
 
-/* ---- Figure placeholder (editorial research-paper style) ---- */
-function Figure({ caption, label = 'figure', ratio = '16 / 9', style = {} }) {
+/* ---- Figure: editorial research-paper style ----
+   Pass `src` to render a real image (path is relative to index.html, e.g.
+   "blog-assets/loss-curve-lied/01-lr-schedule.png"). Omit `src` to render the
+   striped placeholder box labelled with `label`. */
+function Figure({ caption, label = 'figure', ratio = '16 / 9', src = '', alt = '', style = {} }) {
   return (
     <figure style={{ margin: '36px 0', ...style }}>
+      {src ? (
+        <img src={src} alt={alt || caption || label} loading="lazy" style={{
+          display: 'block', width: '100%', height: 'auto',
+          border: '1px solid var(--hairline)', borderRadius: 'var(--radius-md)',
+        }} />
+      ) : (
       <div style={{
         aspectRatio: ratio, background: 'var(--paper-raised)',
         border: '1px solid var(--hairline)', borderRadius: 'var(--radius-md)',
@@ -33,6 +42,7 @@ function Figure({ caption, label = 'figure', ratio = '16 / 9', style = {} }) {
           textTransform: 'uppercase', color: 'var(--ink-ghost)',
         }}>{label}</span>
       </div>
+      )}
       {caption && (
         <figcaption style={{
           fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink-faint)',
