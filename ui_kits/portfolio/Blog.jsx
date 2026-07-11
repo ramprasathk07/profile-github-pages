@@ -141,19 +141,14 @@ function LossCurvePost() {
     <div className="post-body" style={{ marginTop: 36 }}>
       <p>I fine-tuned <b>Qwen2.5-0.5B-Instruct</b> on ~10,000 coding-reasoning examples. Validation loss settled at <b>0.0273</b>. Token entropy collapsed from 1.09 to 0.12 nats. Every curve on the dashboard said the run had worked. Then I ran the model and it would not stop talking — coherent-sounding reasoning that repeated <i>"the code is correct… the code is efficient…"</i> straight into the 512-token cap, never once emitting the format tags I had trained it to produce. This is the account of the gap between a healthy loss curve and a broken model.</p>
 
-      {/* wire image: set src to the file you drop in blog-assets/loss-curve-lied/ */}
-      <Figure label="figure 1" ratio="16 / 9" src=""
-        caption="Validation loss settled at 0.0273 and token entropy collapsed 1.09 → 0.12 nats. Every training-time signal said the run had worked." />
+      <Figure label="figure 1" src="blog-assets/loss-curve-lied/loss-graph.webp"
+        caption="The full training dashboard — DFT loss (val 0.0273), token entropy (1.09 → 0.12 nats), gradient norm, and the learning rate. Three of the four panels say 'success'; only the LR panel, rebounding after the midpoint, hints at the bug." />
 
       <h2>The plan: a small model that actually runs code</h2>
       <p>The target was a compact reasoning model whose responses followed a strict shape: <code style={codeStyle}>&lt;think&gt;</code> step-by-step reasoning <code style={codeStyle}>&lt;/think&gt;</code> then <code style={codeStyle}>&lt;answer&gt;</code> runnable code <code style={codeStyle}>&lt;/answer&gt;</code>. Those four markers went in as new special tokens. The data came from OpenCodeReasoning; the loss was <b>Dynamic Fine-Tuning (DFT)</b> — a per-token scheme that multiplies the usual objective by the model's own probability of the token, <code style={codeStyle}>L = -sg(p)·log p</code>. Training was custom: DDP across two free Kaggle T4s, cosine LR with warmup, W&amp;B and MLflow logging. 7.8 hours, effective batch size 64, and that textbook-looking 0.027.</p>
 
       <h2>The first clue: a learning-rate schedule that came back from the dead</h2>
       <p>The one curve that looked <i>wrong</i> was the learning rate. A cosine schedule should peak after warmup and decay monotonically to near-zero. Mine peaked around step 25, hit zero halfway through, then <b>climbed back up</b> in epoch 3. One line did it: <code style={codeStyle}>self.scheduler = self.accelerator.prepare(self.scheduler)</code>. Under DDP with two processes, <code style={codeStyle}>accelerate</code> steps the scheduler twice per optimizer step, so a 189-step schedule finished in 94. And <code style={codeStyle}>get_cosine_schedule_with_warmup</code> never clamps progress at 1.0 — once <code style={codeStyle}>progress &gt; 1</code>, the term <code style={codeStyle}>0.5·(1+cos(π·progress))</code> starts <i>rising</i> again. The numbers were internally consistent (predicted 1.98e-5, logged 1.999e-5), which is exactly why it hid in plain sight.</p>
-
-      {/* wire image: blog-assets/loss-curve-lied/02-lr-schedule.png */}
-      <Figure label="figure 2" ratio="16 / 9" src=""
-        caption="The learning-rate schedule: it peaks early, hits zero at the halfway mark, then climbs back through epoch 3 — the one curve that looked wrong." />
 
       <Callout label="the tell">
         Every other curve was healthy. The learning rate was the only visible wrong signal — and it was only visible because I plotted it. Log the learning rate. Look at it.
@@ -162,8 +157,7 @@ function LossCurvePost() {
       <h2>The eval: where everything fell apart</h2>
       <p>The eval checked three things per task: did the output contain the tags, did the code execute correctly in a sandbox, and did generation terminate before 512 tokens. The <i>base</i> model passed 7 of 8 with clean ~112-token code blocks. The fine-tuned model passed 4 of 7, never emitted a tag, and hit the cap every single time. A 6× loss reduction and a 10× entropy drop had produced a model that behaved worse than the one I started with.</p>
 
-      {/* wire image: blog-assets/loss-curve-lied/03-eval-output.png */}
-      <Figure label="figure 3" ratio="16 / 9" src=""
+      <Figure label="figure 2" src="blog-assets/loss-curve-lied/loss-results.webp"
         caption="Behavioral eval — base model (7/8, clean code blocks) vs. fine-tuned (4/7, no format tags, every generation running to the 512-token cap)." />
 
       <h2>Bug 1 — the wrong data file</h2>
@@ -209,9 +203,8 @@ function MambaMoePost() {
       <h2>Architecture decides everything</h2>
       <p><b>Nemotron-3-Nano-30B-A3B</b> is 52 layers, but only <b>6</b> are GQA self-attention — the other <b>46</b> are Mamba-2 state-space layers, giving linear-time sequence processing. Each MoE block routes tokens top-6 across <b>128 routed experts</b> plus 2 shared experts per layer. No dropout, Squared ReLU instead of SwiGLU, no additive biases, no positional embeddings, untied input/output embeddings. ~3B active parameters per token out of 30B total. That shape dictates which modules LoRA can even touch and how gradients propagate — before you tune a single hyperparameter.</p>
 
-      {/* wire image: blog-assets/mamba-moe-postmortem/01-architecture.png */}
-      <Figure label="figure 1" ratio="16 / 9" src=""
-        caption="Nemotron-3-Nano-30B-A3B: 52 layers — 6 GQA attention, 46 Mamba-2 — with 128-expert, top-6 MoE blocks. ~3B active params per token." />
+      <Figure label="figure 1" src="blog-assets/mamba-moe-postmortem/Nvidia-nemotron-moe.webp"
+        caption="Nemotron-3-Nano-30B-A3B: 52 layers — GQA attention, Mamba-2 state-space, and 128-expert top-6 MoE blocks (1 shared + 6 active per token). Diagram after Sebastian Raschka." />
 
       <h2>LoRA on SSMs — where gradients actually flow</h2>
       <p>Mamba-2 computes its state transitions (<code style={codeStyle}>A, B, C, D</code>) inside a fused selective-scan CUDA kernel. LoRA decomposes a weight <code style={codeStyle}>W</code> into <code style={codeStyle}>W + AB&#8288;ᵀ</code>, but only the linear projections at the layer boundary — <code style={codeStyle}>in_proj</code> and <code style={codeStyle}>out_proj</code> — have the dimensionality for a useful low-rank factorization; the scan's internal state does not. The SSM-PEFT and MambaPEFT papers say the same. So the real adaptation surface is: the 6 attention layers, the Mamba input projections, the MoE expert projections, and the LM head.</p>
@@ -246,10 +239,6 @@ function MambaMoePost() {
 
       <h2>Where the remaining points live</h2>
       <p>0.85 is a weighted average. Arithmetic categories (~60% of the weight) already sit near 0.95, contributing ~0.57. The hard tail — ciphers, bit manipulation, cryptarithmetic (~40% weight) — sits at 0.60–0.75, contributing ~0.28. Reaching 0.90 means lifting that tail from ~0.65 to ~0.85: a 20-point gain on 40% weight is exactly the 0.08 gap. And the cryptarithm data was 92% duplicates — 627 rows collapse to 54 unique problems. The path is a deterministic synthetic generator plus strong-teacher traces, not a better optimizer.</p>
-
-      {/* wire image: blog-assets/mamba-moe-postmortem/02-category-breakdown.png */}
-      <Figure label="figure 2" ratio="16 / 9" src=""
-        caption="Accuracy by category: arithmetic ~0.95, the hard tail (ciphers, bit-ops, cryptarithms) 0.60–0.75. The tail is where the remaining 0.05 lives." />
 
       <h2>Five lessons</h2>
       <p><b>1. Architecture &gt; optimizer.</b> Whether RL was feasible, which modules LoRA could touch, and how to package the submission were all decided by the hybrid-Mamba-MoE design.</p>

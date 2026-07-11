@@ -24,16 +24,16 @@ Drop blog figure images here, then point each `<Figure>` at them. Paths are
 
 `Figure` lives in `ui_kits/portfolio/util.jsx` — it already supports `src`/`alt`.
 
-## Expected files (match the captions in Blog.jsx)
+## Currently wired (in Blog.jsx)
 
 ### loss-curve-lied/  ("My loss curve said 0.027…")
-- `01-loss-entropy.png`   — figure 1 · validation loss 0.0273 + entropy 1.09 → 0.12
-- `02-lr-schedule.png`    — figure 2 · LR schedule dipping to zero then rising in epoch 3
-- `03-eval-output.png`    — figure 3 · base vs. fine-tuned behavioral eval
+- `loss-graph.webp`   — figure 1 · 4-panel training dashboard (loss / entropy / LR / grad-norm)
+- `loss-results.webp` — figure 2 · base vs. fine-tuned behavioral eval table
 
 ### mamba-moe-postmortem/  ("Fine-Tuning a 30B Hybrid-Mamba MoE…")
-- `01-architecture.png`      — figure 1 · Nemotron-3-Nano-30B-A3B layer/expert layout
-- `02-category-breakdown.png`— figure 2 · per-category accuracy, arithmetic vs. hard tail
+- `Nvidia-nemotron-moe.webp` — figure 1 · Nemotron-3-Nano-30B-A3B layer/expert layout
+
+To add another figure, drop the image here and add a `<Figure src="blog-assets/<post>/<file>" caption="…" />` in the matching essay in `Blog.jsx`.
 
 ## Notes
 - Prefer PNG/WebP; keep each under ~300 KB so GitHub Pages stays fast.
