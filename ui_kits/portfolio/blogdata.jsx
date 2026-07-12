@@ -75,7 +75,7 @@ const POSTS = [
 const PLAN = {
   version: 'v5',
   window: 'Jun – Oct 2026',
-  northStar: 'Land a Research Engineer / AI Systems / LLM Inference role at 30–50 LPA+ (or international equivalent) by Month 5. Two flagship assets drive this: TripleQuant-VLM — the most comprehensive Qwen2.5-VL quantization benchmark published — and IssueFix-RL, a rigorous RLHF comparison that opens research-lab doors inference work alone cannot.',
+  northStar: 'Establish myself as a researcher and development expert in AI systems and large-model inference within five months. Two flagship projects will anchor this journey: TripleQuant-VLM, a comprehensive benchmark of Qwen2.5-VL quantization techniques, and IssueFix-RL, a rigorous study of RLHF approaches that demonstrates both research depth and practical system-building expertise.',
   stack: [
     { rank: 1, name: 'TripleQuant-VLM', status: 'flagship', timeline: 'Month 1–2', progress: 45, repo: 'https://github.com/ramprasathk07/TripleQuant-VLM', signal: '3-backend quant benchmark (AWQ, TurboQuant KV, Triton attention) on Qwen2.5-VL — the inference-depth flagship. v0.1 baseline + W4A16 table already shipping.', domains: ['quantization','inference','vllm','vlm'] },
     { rank: 2, name: 'IssueFix-RL', status: 'research', timeline: 'Month 3–4', progress: 20, repo: 'https://github.com/ramprasathk07/IssueFix-RL', signal: 'Controlled RLHF comparison — SFT vs DPO vs PPO vs GRPO vs DR-GRPO on real GitHub issues. SFT stage underway; reward harness scaffolded.', domains: ['rlhf','post-training','grpo','lora'] },
