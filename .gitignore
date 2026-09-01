@@ -217,3 +217,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# --- portfolio: local-only working material, not part of the built site ---
+# NOTE: git has no inline comments in .gitignore — keep every comment on its own line,
+# or the trailing text becomes part of the pattern and the rule silently matches nothing.
+
+# source résumé PDFs (the shipped copy is /resume.pdf)
+ref/
+# design-tool export the live site was built from
+Portfolio_v2/
+# old résumé variants and planning documents — private
+uploads/
+# working screenshots
+scraps/
+*.stackdump
+
+# design-system tooling artifacts (not served)
+_adherence.oxlintrc.json
+_ds_manifest.json
+

@@ -1,0 +1,40 @@
+name: Sync Medium posts
+
+# NOTE: manual-trigger only for now. This job writes
+# ui_kits/portfolio/medium-posts.json, which belonged to the previous
+# (v1) site. The current site at /index.html carries its write-ups
+# per-repo inside each dossier, so a new Medium post has to be attached
+# to the right repo with the right part label — not a mechanical insert.
+# Re-enable the daily cron once the sync targets the dossier data.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch Medium RSS and diff against known posts
+        run: node scripts/sync-medium.mjs
+
+      - name: Open PR if new posts were found
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore(blog): sync new Medium post(s)'
+          title: 'New Medium post(s) detected'
+          body: |
+            Auto-detected via the Medium RSS feed (`medium.com/feed/@ramk612000`).
+            Review the entries in `ui_kits/portfolio/medium-posts.json`, then merge to publish
+            as index cards on the site. To fully mirror a post's essay in-site, hand-author
+            it in `blogdata.jsx` (see existing entries) and remove it from `medium-posts.json`.
+          branch: sync-medium/auto
+          add-paths: ui_kits/portfolio/medium-posts.json

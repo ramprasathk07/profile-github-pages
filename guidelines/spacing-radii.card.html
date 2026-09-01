@@ -1,0 +1,23 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Radii & Borders" subtitle="Small radii, hairline borders over shadow" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 24px 28px; display: flex; gap: 22px; align-items: center; }
+  .box { width: 76px; height: 64px; background: var(--paper-raised); border: 1px solid var(--hairline-strong); }
+  .lab { font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); margin-top: 8px; text-align:center; }
+  .item { text-align:center; }
+  .shadow { width: 76px; height: 64px; background: var(--paper-pure); border: 1px solid var(--hairline); border-radius: 8px; box-shadow: 0 2px 8px rgba(27,26,22,0.06), 0 1px 2px rgba(27,26,22,0.04); }
+</style>
+</head>
+<body>
+  <div class="item"><div class="box" style="border-radius:0"></div><div class="lab">none · 0</div></div>
+  <div class="item"><div class="box" style="border-radius:3px"></div><div class="lab">xs · 3</div></div>
+  <div class="item"><div class="box" style="border-radius:5px"></div><div class="lab">sm · 5</div></div>
+  <div class="item"><div class="box" style="border-radius:8px"></div><div class="lab">md · 8</div></div>
+  <div class="item"><div class="box" style="border-radius:12px"></div><div class="lab">lg · 12</div></div>
+  <div class="item"><div class="shadow"></div><div class="lab">shadow-md</div></div>
+</body>
+</html>

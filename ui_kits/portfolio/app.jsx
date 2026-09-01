@@ -49,7 +49,7 @@ function Nav({ tab, setTab }) {
             onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}>
             <Icon name="github" size={17} />
           </a>
-          <Button as="a" href="#" variant="secondary" size="sm" iconRight={<Icon name="arrow-up-right" size={13} />}>resume.pdf</Button>
+          <Button as="a" href="../../resume.pdf" target="_blank" rel="noreferrer" variant="secondary" size="sm" iconRight={<Icon name="arrow-up-right" size={13} />}>resume.pdf</Button>
         </div>
       </div>
     </header>

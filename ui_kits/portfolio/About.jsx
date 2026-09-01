@@ -63,6 +63,7 @@ function About({ onNav }) {
             <div style={{ display: 'flex', gap: 22, marginTop: 28, fontFamily: 'var(--font-mono)', fontSize: 13 }}>
               <a href={PROFILE.github} style={{ color: 'var(--ink-muted)', display: 'inline-flex', gap: 7, alignItems: 'center' }}><Icon name="github" size={15} /> github</a>
               <a href={PROFILE.linkedin} style={{ color: 'var(--ink-muted)', display: 'inline-flex', gap: 7, alignItems: 'center' }}><Icon name="linkedin" size={15} /> linkedin</a>
+              <a href={PROFILE.medium} style={{ color: 'var(--ink-muted)', display: 'inline-flex', gap: 7, alignItems: 'center' }}><Icon name="newspaper" size={15} /> medium</a>
               <a href={'mailto:' + PROFILE.email} style={{ color: 'var(--ink-muted)', display: 'inline-flex', gap: 7, alignItems: 'center' }}><Icon name="mail" size={15} /> email</a>
             </div>
           </div>

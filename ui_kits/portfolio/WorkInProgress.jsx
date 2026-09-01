@@ -4,7 +4,9 @@ function WorkInProgress() {
   const { PlanRepo, Callout, Tag } = DS;
   const P = PLAN;
   return (
-    <div style={{ padding: '56px 0 64px' }}>
+    /* One column width for the whole tab — section dividers, the plan rows,
+       the benchmark table, and the month timeline all share left/right edges. */
+    <div style={{ maxWidth: 900, padding: '56px 0 64px' }}>
       <header style={{ maxWidth: '66ch' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
           <span className="ds-eyebrow" style={{ color: 'var(--clay)' }}>// the plan</span>
@@ -29,7 +31,7 @@ function WorkInProgress() {
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--ink-faint)', margin: '14px 0 8px' }}>
           Ranked by impact. The top two are underway with live progress; the rest are scoped and queued — names out, details landing as each kicks off.
         </p>
-        <div style={{ maxWidth: 880 }}>
+        <div>
           {P.stack.map(r => <PlanRepo key={r.rank} {...r} />)}
         </div>
       </section>
@@ -91,7 +93,7 @@ function WorkInProgress() {
       {/* month timeline */}
       <section style={{ marginTop: 56 }}>
         <DS.SectionDivider label="month-by-month" style={{ marginBottom: 36 }} />
-        <div style={{ maxWidth: 860 }}>
+        <div>
           {P.months.map((mo, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 28, padding: '24px 0', borderBottom: i < P.months.length - 1 ? '1px solid var(--hairline)' : 'none' }} className="month-row">
               <div>

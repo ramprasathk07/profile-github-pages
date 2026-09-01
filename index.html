@@ -1,1 +1,1356 @@
-<!doctype html><meta http-equiv="refresh" content="0; url=./ui_kits/portfolio/index.html">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ram Prasath K — ML Engineer</title>
+<meta name="description" content="ML Engineer — LLM/VLM serving, agentic systems, quantization and GPU inference. Production AI at Ubisoft India R&amp;D, with public research repos and write-ups.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FBF9F4'/><text x='16' y='68' font-family='monospace' font-size='42' fill='%23BB4A2C'>~/</text><text x='58' y='68' font-family='Georgia,serif' font-size='46' fill='%231B1A16'>r</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — warm paper + ink, single terracotta signal.
+   ============================================================ */
+:root{
+  --paper:#FBF9F4; --paper-raised:#F4F0E8; --paper-sunken:#EDE8DD;
+  --ink:#1B1A16; --ink-muted:#56524A; --ink-faint:#908B7E; --ink-ghost:#B8B2A4;
+  --hairline:#E5E0D5; --hairline-strong:#D4CDBE;
+  --clay:#BB4A2C; --clay-hover:#9C3A1F; --clay-wash:#F5E7DF;
+  --cobalt:#2A4B8D; --positive:#6E8B4E;
+  --font-serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --font-sans:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --radius-xs:3px; --radius-sm:5px; --radius-md:8px; --radius-lg:12px;
+  --shadow-md:0 2px 8px rgba(27,26,22,.06),0 1px 2px rgba(27,26,22,.04);
+  --shadow-lg:0 8px 28px rgba(27,26,22,.08);
+  --ease-out:cubic-bezier(.22,.61,.36,1); --dur-fast:120ms; --dur-base:200ms;
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;font-family:var(--font-sans)}
+a{color:var(--clay);text-decoration:none}
+a:hover{color:var(--clay-hover);text-decoration:underline;text-underline-offset:3px}
+img{max-width:100%}
+::selection{background:var(--clay-wash)}
+@keyframes blink{0%,48%{opacity:1}52%,100%{opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+section{scroll-margin-top:76px}
+
+/* ---------- chrome ---------- */
+header.site{position:sticky;top:0;z-index:40;background:rgba(251,249,244,.86);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);border-bottom:1px solid var(--hairline)}
+header.site .wrap{height:60px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.mark{display:flex;align-items:baseline;gap:5px;text-decoration:none}
+.mark:hover{text-decoration:none}
+.mark .slash{font-family:var(--font-mono);font-size:13px;color:var(--clay)}
+.mark .name{font-family:var(--font-serif);font-size:19px;letter-spacing:-.02em;color:var(--ink)}
+nav.tabs{display:flex;align-items:center;gap:2px}
+nav.tabs a{font-family:var(--font-sans);font-size:13.5px;font-weight:500;color:var(--ink-faint);padding:8px 11px;text-decoration:none;transition:color var(--dur-fast) var(--ease-out)}
+nav.tabs a:hover{color:var(--ink);text-decoration:none}
+.chrome-right{display:flex;align-items:center;gap:14px}
+.gh-link{font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);text-decoration:none}
+.gh-link:hover{color:var(--clay);text-decoration:none}
+
+/* ---------- primitives ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:var(--font-sans);font-size:13.5px;font-weight:600;height:40px;padding:0 17px;border-radius:var(--radius-sm);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:all var(--dur-fast) var(--ease-out)}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn-primary:hover{background:#000;color:var(--paper)}
+.btn-secondary{background:transparent;color:var(--ink);border-color:var(--hairline-strong)}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink)}
+.btn-ghost{background:transparent;color:var(--ink-muted);border-color:transparent}
+.btn-ghost:hover{color:var(--clay);background:var(--paper-raised)}
+.btn-sm{height:34px;font-size:12.5px;padding:0 13px}
+.btn-block{width:100%}
+
+.tag{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:11px;color:var(--ink-muted);background:var(--paper-raised);border:1px solid var(--hairline);border-radius:var(--radius-xs);padding:3px 7px;white-space:nowrap}
+
+.eyebrow{font-family:var(--font-mono);font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);display:flex;align-items:center;gap:14px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--hairline)}
+.eyebrow .n{color:var(--clay)}
+
+.kicker{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+h2.display{font-family:var(--font-serif);font-weight:300;font-size:38px;line-height:1.14;letter-spacing:-.024em;color:var(--ink);margin:16px 0 0}
+.lede{font-family:var(--font-sans);font-size:14.5px;line-height:1.62;color:var(--ink-muted);margin:0}
+.section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.62fr);gap:48px;align-items:end;margin-top:16px}
+.section-head h2.display{margin:0}
+
+.pill{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.pill-clay{color:var(--clay);background:var(--clay-wash)}
+.pill-mute{color:var(--ink-muted);background:var(--paper-raised)}
+.pill-ink{color:var(--paper);background:var(--ink)}
+
+.arrow-link{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--clay);text-decoration:none;white-space:nowrap}
+.arrow-link:hover{text-decoration:none}
+.arrow-link .a{display:inline-block;transition:transform var(--dur-base) var(--ease-out)}
+.arrow-link:hover .a{transform:translateX(3px)}
+
+.callout{border-left:2px solid var(--clay);background:var(--paper-raised);border-radius:0 var(--radius-md) var(--radius-md) 0;padding:16px 20px}
+.callout .lbl{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin-bottom:8px}
+.callout.info{border-left-color:var(--cobalt)}
+.callout.info .lbl{color:var(--cobalt)}
+.callout p{font-family:var(--font-serif);font-size:17px;line-height:1.68;color:var(--ink-muted);margin:0}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(272px,.82fr);gap:56px;align-items:start}
+h1.hero-title{font-family:var(--font-serif);font-weight:300;font-size:clamp(42px,5.4vw,68px);line-height:1.04;letter-spacing:-.028em;color:var(--ink);margin:20px 0 0;text-wrap:pretty}
+.caret{display:inline-block;width:.42em;height:.86em;margin-left:.14em;background:var(--clay);transform:translateY(.04em);animation:blink 1.15s steps(1) infinite}
+.hero-sum{font-family:var(--font-serif);font-size:20.5px;line-height:1.72;color:var(--ink-muted);max-width:62ch;margin:26px 0 0;text-wrap:pretty}
+.status{display:flex;align-items:center;gap:9px;margin-top:26px}
+.status .dot{width:7px;height:7px;border-radius:999px;background:var(--positive)}
+.status span{font-family:var(--font-mono);font-size:12px;color:var(--ink-muted)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.latest{display:flex;align-items:center;gap:10px;margin-top:34px;padding-top:18px;border-top:1px solid var(--hairline);flex-wrap:wrap}
+.latest .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost)}
+.latest .v{font-family:var(--font-mono);font-size:12px;color:var(--ink-muted)}
+
+.jsoncard{background:var(--paper-raised);border:1px solid var(--hairline);border-radius:var(--radius-md);overflow:hidden}
+.jsoncard .bar{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--hairline)}
+.jsoncard .bar .s{font-family:var(--font-mono);font-size:11px;color:var(--clay)}
+.jsoncard .bar .t{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-muted)}
+.jsoncard .body{padding:18px 18px 20px;font-family:var(--font-mono);font-size:12px;line-height:2.05;color:var(--ink-muted)}
+.jsoncard .brace{color:var(--ink-ghost)}
+.jsoncard .row{padding-left:14px}
+.jsoncard .k{color:var(--ink-faint)}
+.jsoncard .v{color:var(--ink)}
+.jsoncard .accent{color:var(--clay)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:28px;margin-top:64px;padding:30px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.stat .v{font-family:var(--font-serif);font-weight:300;font-size:42px;line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.stat .v.accent{color:var(--clay)}
+.stat .l{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);line-height:1.5;margin-top:10px}
+
+/* ---------- work ---------- */
+.highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:1px;margin-top:34px;background:var(--hairline);border:1px solid var(--hairline);border-radius:var(--radius-md);overflow:hidden}
+.highlights > div{background:var(--paper);padding:20px 20px 22px;display:flex;flex-direction:column;gap:9px}
+.highlights .k{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+.highlights .t{font-family:var(--font-serif);font-size:24px;line-height:1.14;letter-spacing:-.022em;color:var(--ink)}
+.highlights .d{font-family:var(--font-sans);font-size:13px;line-height:1.55;color:var(--ink-muted)}
+
+.timeline{margin-top:48px;max-width:880px}
+.tl{display:grid;grid-template-columns:20px minmax(0,1fr);gap:20px;padding-bottom:34px;position:relative}
+.tl:not(.last)::before{content:"";position:absolute;left:9px;top:22px;bottom:0;width:1px;background:var(--hairline)}
+.tl .node{width:11px;height:11px;border-radius:999px;border:2px solid var(--clay);background:var(--paper);margin-top:6px;position:relative;z-index:1}
+.tl .head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.tl .role{font-family:var(--font-serif);font-size:22px;letter-spacing:-.018em;color:var(--ink)}
+.tl .org{color:var(--ink-faint)}
+.tl .dates{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+.tl .sum{font-family:var(--font-sans);font-size:13px;color:var(--ink-faint);margin-top:5px}
+.tl ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.tl li{font-family:var(--font-sans);font-size:14px;line-height:1.6;color:var(--ink-muted);padding-left:18px;position:relative}
+.tl li::before{content:"▸";position:absolute;left:0;color:var(--clay)}
+.tl .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px;max-width:880px;padding-top:24px;border-top:1px solid var(--hairline)}
+.edu > div{display:flex;flex-direction:column;gap:4px}
+.edu .s{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--ink)}
+.edu .d{font-family:var(--font-sans);font-size:13px;line-height:1.5;color:var(--ink-muted)}
+.edu .w{font-family:var(--font-mono);font-size:11px;color:var(--ink-ghost)}
+
+/* ---------- repo grid ---------- */
+.repogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;margin-top:36px}
+.repocard{cursor:pointer;background:var(--paper);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:20px 20px 16px;display:flex;flex-direction:column;gap:13px;text-align:left;font:inherit;transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out)}
+.repocard:hover{transform:translateY(-2px);border-color:var(--clay);box-shadow:var(--shadow-lg)}
+.repocard:focus-visible{outline:2px solid var(--clay);outline-offset:2px}
+.repocard .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.repocard .num{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost)}
+.repocard h3{font-family:var(--font-serif);font-weight:400;font-size:26px;letter-spacing:-.02em;line-height:1.15;color:var(--ink);margin:0}
+.repocard p{font-family:var(--font-sans);font-size:14px;line-height:1.62;color:var(--ink-muted);margin:0}
+.repocard .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.repocard .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid var(--hairline)}
+.repocard .foot .c{font-family:var(--font-mono);font-size:11px;color:var(--ink-faint)}
+.repocard .foot .o{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--clay)}
+.repofoot{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:22px;padding-top:18px;border-top:1px solid var(--hairline);flex-wrap:wrap}
+.repofoot p{font-family:var(--font-sans);font-size:13.5px;color:var(--ink-faint);margin:0}
+
+/* ---------- writing ---------- */
+.writing{margin-top:34px;max-width:900px;border-top:1px solid var(--hairline)}
+.post{display:grid;grid-template-columns:168px minmax(0,1fr);gap:26px;align-items:center;padding:22px 0;border-bottom:1px solid var(--hairline)}
+.post .cover img{display:block;width:168px;height:112px;object-fit:cover;border:1px solid var(--hairline);border-radius:var(--radius-sm)}
+.post .cover .ph{display:flex;width:168px;height:112px;align-items:center;justify-content:center;border:1px solid var(--hairline);border-radius:var(--radius-sm);background:var(--paper-raised);font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost)}
+.post .topic{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+.post .t{font-family:var(--font-serif);font-size:22px;line-height:1.25;letter-spacing:-.018em;color:var(--ink);margin:8px 0 0;display:block;text-decoration:none}
+.post a.t:hover{color:var(--clay);text-decoration:none}
+.post .d{font-family:var(--font-sans);font-size:13.5px;line-height:1.55;color:var(--ink-muted);margin:8px 0 0}
+.post .m{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-faint);margin-top:10px}
+.writing .end{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0 0;flex-wrap:wrap}
+.writing .end span{font-family:var(--font-sans);font-size:13.5px;color:var(--ink-faint)}
+
+/* ---------- stack ---------- */
+.stackgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0 56px;margin-top:34px}
+.stackcol{display:flex;flex-direction:column}
+.stackrow{display:grid;grid-template-columns:132px minmax(0,1fr);gap:18px;padding:15px 0;border-top:1px solid var(--hairline)}
+.stackrow .k{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--ink)}
+.stackrow .v{font-family:var(--font-mono);font-size:12px;line-height:1.85;color:var(--ink-muted)}
+
+/* ---------- contact ---------- */
+#contact .inner{border-top:1px solid var(--hairline);padding:56px 0 0}
+#contact .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:end;margin-top:16px}
+#contact h2{font-family:var(--font-serif);font-weight:300;font-size:clamp(32px,3.6vw,44px);line-height:1.12;letter-spacing:-.026em;color:var(--ink);margin:0;max-width:22ch}
+.footline{display:flex;flex-wrap:wrap;gap:8px 26px;margin:44px 0 0;padding:20px 0 40px;border-top:1px solid var(--hairline)}
+.footline span{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-faint)}
+.footline .c{color:var(--ink-ghost);margin-left:auto}
+
+/* ---------- dossier ---------- */
+.backdrop{position:fixed;inset:0;z-index:90;background:rgba(27,26,22,.34);backdrop-filter:blur(3px);overflow-y:auto;padding:40px 24px 72px;display:flex;align-items:flex-start;justify-content:center;animation:fade 160ms ease-out both}
+.backdrop[hidden]{display:none}
+.dossier{position:relative;width:100%;max-width:1060px;background:var(--paper);border:1px solid var(--hairline-strong);border-radius:var(--radius-lg);box-shadow:0 26px 70px rgba(27,26,22,.22),0 2px 8px rgba(27,26,22,.08);animation:rise 280ms var(--ease-out) both}
+.dhead{background:var(--paper-raised);border-bottom:1px solid var(--hairline);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:24px 30px 0}
+.dhead .r1{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.dhead .meta{min-width:0;display:flex;flex-direction:column;gap:11px}
+.dhead .crumb{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.dhead .crumb .l{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+.dhead .crumb .n{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-ghost)}
+.dhead .titles{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.dhead h2{font-family:var(--font-serif);font-weight:300;font-size:40px;line-height:1.06;letter-spacing:-.028em;color:var(--ink);margin:0}
+.dhead .dek{font-family:var(--font-serif);font-size:19px;line-height:1.6;color:var(--ink-muted);margin:0;max-width:66ch;text-wrap:pretty}
+.closebtn{flex:none;cursor:pointer;background:var(--paper);border:1px solid var(--hairline-strong);border-radius:999px;padding:6px 13px;font-family:var(--font-mono);font-size:11px;color:var(--ink-muted);transition:all var(--dur-fast) var(--ease-out)}
+.closebtn:hover{border-color:var(--clay);color:var(--clay)}
+.dbar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:22px;flex-wrap:wrap}
+.dtabs{display:flex;gap:2px}
+.dtab{background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:var(--font-sans);font-size:13.5px;font-weight:500;color:var(--ink-faint);padding:10px 13px 12px;margin-bottom:-1px;transition:color var(--dur-fast) var(--ease-out)}
+.dtab[aria-selected="true"]{font-weight:600;color:var(--ink);border-bottom-color:var(--clay)}
+.aud{display:flex;align-items:center;gap:8px;padding-bottom:8px}
+.aud .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-ghost)}
+.audtoggle{display:flex;gap:3px;background:var(--paper);border:1px solid var(--hairline);border-radius:999px;padding:3px}
+.audbtn{cursor:pointer;border:none;border-radius:999px;padding:4px 11px;font-family:var(--font-sans);font-size:12px;font-weight:500;background:transparent;color:var(--ink-faint);transition:all var(--dur-fast) var(--ease-out)}
+.audbtn[aria-pressed="true"]{font-weight:600;background:var(--ink);color:var(--paper)}
+.dbody{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:40px;padding:30px 30px 40px}
+.dmain{min-width:0;display:flex;flex-direction:column;gap:34px}
+.dpane[hidden]{display:none}
+.dpane{display:flex;flex-direction:column;gap:34px}
+.blk .lbl{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.question{font-family:var(--font-serif);font-size:21px;line-height:1.66;color:var(--ink);margin:14px 0 0;max-width:60ch;text-wrap:pretty}
+.finding{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 24px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--hairline)}
+.finding .k{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--ink)}
+.finding .note{font-family:var(--font-sans);font-size:13px;line-height:1.6;color:var(--ink-faint);margin-top:4px}
+.finding .v{font-family:var(--font-mono);font-size:14.5px;color:var(--clay);text-align:right}
+.scopes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.bullets{margin-top:12px;display:flex;flex-direction:column;gap:9px}
+.bullet{display:grid;grid-template-columns:14px minmax(0,1fr);gap:8px;font-family:var(--font-sans);font-size:13.5px;line-height:1.58;color:var(--ink-muted)}
+.bullet .m{color:var(--clay)}
+.bullet.out{color:var(--ink-faint)}
+.bullet.out .m{color:var(--ink-ghost)}
+.roadhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.roadhead .l{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+.roadhead .s{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-ghost)}
+.road{display:grid;grid-template-columns:54px minmax(0,1fr);gap:16px;padding:13px 0;border-top:1px solid var(--hairline)}
+.road .w{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);padding-top:2px}
+.road .t{font-family:var(--font-sans);font-size:13.5px;line-height:1.58;color:var(--ink-muted)}
+figure.fig{margin:0}
+figure.fig .frame{border:1px solid var(--hairline);border-radius:var(--radius-md);overflow:hidden;background:var(--paper-raised)}
+figure.fig img{display:block;width:100%;height:auto}
+figure.fig figcaption{font-family:var(--font-sans);font-size:13px;line-height:1.5;color:var(--ink-faint);margin-top:11px;text-align:center}
+.step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:20px;padding:22px 0;border-top:1px solid var(--hairline)}
+.step .n{font-family:var(--font-mono);font-size:13px;color:var(--clay)}
+.step .t{font-family:var(--font-sans);font-size:15px;font-weight:600;color:var(--ink)}
+.step p{font-family:var(--font-serif);font-size:17.5px;line-height:1.72;color:var(--ink-muted);margin:8px 0 0;max-width:58ch;text-wrap:pretty}
+.wu{display:grid;grid-template-columns:148px minmax(0,1fr);gap:22px;align-items:center;padding:18px 0;border-bottom:1px solid var(--hairline)}
+.wu .cover img{display:block;width:148px;height:99px;object-fit:cover;border:1px solid var(--hairline);border-radius:var(--radius-sm)}
+.wu .cover .ph{width:148px;height:99px;border:1px dashed var(--hairline-strong);border-radius:var(--radius-sm);background:var(--paper-raised);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-ghost)}
+.daside{min-width:0;display:flex;flex-direction:column;gap:18px;align-self:start;position:sticky;top:16px}
+.metacard{background:var(--paper-raised);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:16px 18px}
+.metacard .m{display:flex;flex-direction:column;gap:3px;padding:9px 0;border-bottom:1px solid var(--hairline)}
+.metacard .m .k{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost)}
+.metacard .m .v{font-family:var(--font-sans);font-size:13.5px;line-height:1.5;color:var(--ink);word-break:break-word}
+.metacard .tags{display:flex;flex-wrap:wrap;gap:6px;padding-top:14px}
+.audcard{border:1px solid var(--clay-wash);background:var(--clay-wash);border-radius:var(--radius-md);padding:15px 17px}
+.audcard .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+.audcard p{font-family:var(--font-serif);font-size:16.5px;line-height:1.62;color:var(--ink);margin:9px 0 0}
+.dnav{position:absolute;left:50%;bottom:-20px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;background:var(--paper);border:1px solid var(--hairline-strong);border-radius:999px;padding:5px;box-shadow:0 10px 26px rgba(27,26,22,.14);max-width:calc(100% - 24px)}
+.dnav button{cursor:pointer;background:none;border:none;border-radius:999px;padding:6px 13px;font-family:var(--font-sans);font-size:12.5px;font-weight:500;color:var(--ink-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;transition:all var(--dur-fast) var(--ease-out)}
+.dnav button:hover{background:var(--paper-raised);color:var(--ink)}
+.dnav .c{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-ghost);padding:0 4px}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .hero{grid-template-columns:1fr;gap:36px}
+  .section-head{grid-template-columns:1fr;gap:18px;align-items:start}
+  .dbody{grid-template-columns:1fr;gap:28px;padding:24px 20px 40px}
+  .daside{position:static}
+  #contact .row{grid-template-columns:1fr;gap:24px;align-items:start}
+  .dhead{padding:20px 20px 0}
+  .dhead h2{font-size:32px}
+}
+@media (max-width:720px){
+  .wrap{padding:0 20px}
+  nav.tabs{display:none}
+  .post{grid-template-columns:1fr;gap:14px}
+  .post .cover img,.post .cover .ph{width:100%}
+  .wu{grid-template-columns:1fr;gap:14px}
+  .wu .cover img,.wu .cover .ph{width:100%}
+  .finding{grid-template-columns:1fr;gap:6px}
+  .finding .v{text-align:left}
+  .dnav button{max-width:104px}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="mark" href="#top"><span class="slash">~/</span><span class="name">ram <b>prasath</b></span></a>
+    <nav class="tabs">
+      <a href="#about">about</a><a href="#work">work</a><a href="#repos">repos</a><a href="#writing">writing</a><a href="#stack">stack</a>
+    </nav>
+    <div class="chrome-right">
+      <a class="gh-link" href="https://github.com/ramprasathk07" target="_blank" rel="noreferrer">github ↗</a>
+      <a class="btn btn-primary btn-sm" href="resume.pdf" target="_blank" rel="noreferrer">resume.pdf</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section id="about" class="wrap" style="padding-top:72px;padding-bottom:8px">
+  <div class="hero">
+    <div>
+      <div class="kicker">ML engineer · LLM/VLM serving · agentic systems</div>
+      <h1 class="hero-title">Building LLMs at the metal.<span class="caret"></span></h1>
+      <p class="hero-sum">Machine Learning Engineer with 2+ years building production AI systems across agentic workflows, LLM/VLM serving, retrieval and backend infrastructure — with a focus on making them reliable and measurable in production. Currently in R&amp;D at Ubisoft India: Vision-Language-Action pipelines, C++ engine tooling, and hybrid RAG over build history.</p>
+      <div class="status"><span class="dot"></span><span>open to inference / agentic AI roles · Pune, open to Chennai &amp; Bengaluru</span></div>
+      <div class="cta">
+        <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noreferrer">download resume</a>
+        <a class="btn btn-secondary" href="mailto:ramk612000@gmail.com">ramk612000@gmail.com</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/ramprasathk07/" target="_blank" rel="noreferrer">linkedin ↗</a>
+      </div>
+      <div class="latest">
+        <span class="k">latest</span>
+        <span class="v">ocr-serving · one OCR pipeline, four serving stacks (vLLM / Triton / Ray Serve / KServe)</span>
+      </div>
+    </div>
+
+    <div class="jsoncard">
+      <div class="bar"><span class="s">~/</span><span class="t">whoami — ram.json</span></div>
+      <div class="body">
+        <div class="brace">{</div>
+        <div class="row"><span class="k">"role"</span>: <span class="v">"ML Engineer"</span>,</div>
+        <div class="row"><span class="k">"at"</span>: <span class="v">"Ubisoft India · R&amp;D"</span>,</div>
+        <div class="row"><span class="k">"focus"</span>: [<span class="v">"LLM"</span>, <span class="v">"VLM"</span>, <span class="v">"agents"</span>],</div>
+        <div class="row"><span class="k">"gpus"</span>: [<span class="v">"4090"</span>, <span class="v">"MI300X"</span>, <span class="v">"3060"</span>],</div>
+        <div class="row"><span class="k">"quant"</span>: <span class="v">"W4A16 | W8A16 | AWQ | FP8"</span>,</div>
+        <div class="row"><span class="k">"tuning"</span>: <span class="v">"SFT|LoRA|DPO|GRPO"</span>,</div>
+        <div class="row"><span class="k">"status"</span>: <span class="accent">"shipping"</span></div>
+        <div class="brace">}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">2+</div><div class="l">years in production AI</div></div>
+    <div class="stat"><div class="v accent">#1</div><div class="l">Mistral AI Hackathon 2026</div></div>
+    <div class="stat"><div class="v">13.6×</div><div class="l">runtime gap measured, same 4-bit weights</div></div>
+    <div class="stat"><div class="v">1</div><div class="l">IEEE paper · 1 patent filed</div></div>
+  </div>
+</section>
+
+<section id="work" class="wrap" style="padding-top:64px">
+  <div class="eyebrow"><span><span class="n">// 01</span> work</span></div>
+  <div class="section-head">
+    <h2 class="display">Make the model run where it is hard to run.</h2>
+    <p class="lede">Edge silicon at Bosch, production GPUs at Ninestars, a C++ game engine at Ubisoft. The constraint keeps changing; the job — profile it, shrink it, ship it — does not.</p>
+  </div>
+
+  <div class="highlights">
+    <div>
+      <span class="k">now · ubisoft india r&amp;d</span>
+      <span class="t">Vision-Language-Action</span>
+      <span class="d">Tracing training instability in the NVIDIA NitroGen (Gr00t) fine-tuning pipeline to its data, optimizer and architecture causes.</span>
+    </div>
+    <div>
+      <span class="k">winner · #1 worldwide</span>
+      <span class="t">Mistral Hackathon 2026</span>
+      <span class="d">Online track — a dungeon boss that reads live combat telemetry and answers your voice.</span>
+    </div>
+    <div>
+      <span class="k">patent · filed dec 2024</span>
+      <span class="t">No. 202441102999</span>
+      <span class="d">Voice authentication with simultaneous intent and entity classification.</span>
+    </div>
+    <div>
+      <span class="k">ieee · icccnt 2024 · iit mandi</span>
+      <span class="t">82% / 84.9% AUC</span>
+      <span class="d">Appearance-Trajectory Network for unsupervised video anomaly detection, with captioning for explainability.</span>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl">
+      <div class="node"></div>
+      <div>
+        <div class="head">
+          <div class="role">Jr. R&amp;D Engineer <span class="org">· Ubisoft India Studios</span></div>
+          <div class="dates">Oct 2025 — present</div>
+        </div>
+        <div class="sum">Game AI &amp; QC — vision-language models inside a C++ engine</div>
+        <ul>
+          <li>Investigated training issues in NVIDIA NitroGen (Gr00t), a Vision-Language-Action model, tracing problems across the data pipeline, optimizer and model architecture to improve training reliability for internal Game AI workflows.</li>
+          <li>Built EagleEye Snap inside Ubisoft's C++ Anvil engine: triangle-level mesh clipping detection, with a LoRA fine-tuned Qwen-VL classifier telling intentional geometry intersections from bugs.</li>
+          <li>Designed a hybrid RAG system over Perforce changelist history — BM25, vector retrieval and reranking — to accelerate regression root-cause analysis across game builds.</li>
+        </ul>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">Diffusion Transformers</span><span class="tag">Vision-Language-Action</span><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Anvil</span><span class="tag">P4V</span><span class="tag">Jira</span></div>
+      </div>
+    </div>
+
+    <div class="tl">
+      <div class="node"></div>
+      <div>
+        <div class="head">
+          <div class="role">Data Science Engineer <span class="org">· Ninestars Information Technologies</span></div>
+          <div class="dates">Jul 2024 — Sep 2025</div>
+        </div>
+        <div class="sum">R&amp;D — the OCR pipeline, and the GPUs it runs on</div>
+        <ul>
+          <li>Cut the annotation bottleneck: YOLO + RT-DETR layout detection behind a Flask backend gave 4× labeling throughput, −20% manual review and +15% entity-extraction precision.</li>
+          <li>Held low-latency VLM serving on a single RTX 4090 — W8A16 / W4A16 under vLLM, with TTFT, decode throughput, concurrency and GPU memory profiled per change rather than guessed.</li>
+          <li>Built the serving layer around it: FastAPI, PostgreSQL and gRPC inference services for document understanding at scale.</li>
+          <li>Designed a multi-agent automation platform on Google ADK + MCP over self-hosted GPT-OSS-20B, taking tool-call success to 92% under Langfuse evaluation.</li>
+        </ul>
+        <div class="tags"><span class="tag">vLLM</span><span class="tag">W4A16</span><span class="tag">Qwen-VL</span><span class="tag">YOLO</span><span class="tag">RT-DETR</span><span class="tag">Google ADK</span><span class="tag">MCP</span><span class="tag">FastAPI</span><span class="tag">gRPC</span><span class="tag">Langfuse</span></div>
+      </div>
+    </div>
+
+    <div class="tl last">
+      <div class="node"></div>
+      <div>
+        <div class="head">
+          <div class="role">Research Engineer Intern <span class="org">· Bosch Global Software Technologies</span></div>
+          <div class="dates">Aug 2023 — Jul 2024</div>
+        </div>
+        <div class="sum">HMI — eleven months from research to NXP edge silicon</div>
+        <ul>
+          <li>Built a ResNet-SE voice authentication system with anti-spoofing for the car cabin: 95% accuracy and 4% EER under real driving noise — the work behind the filed patent.</li>
+          <li>Trained multilingual speaker recognition on VoxCeleb and AI4Bharat IndicSuperb, then took it all the way to NXP edge silicon via ONNX and TensorFlow Lite.</li>
+          <li>Built an experimental speaker diarization pipeline for multi-speaker automotive audio using ECAPA-TDNN embeddings and clustering.</li>
+        </ul>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">ResNet-SE</span><span class="tag">ECAPA-TDNN</span><span class="tag">ONNX</span><span class="tag">TFLite</span><span class="tag">NXP edge</span><span class="tag">VoxCeleb</span><span class="tag">IndicSuperb</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="edu">
+    <div>
+      <span class="s">Amrita Vishwa Vidyapeetham</span>
+      <span class="d">M.Tech Data Science · School of AI · CGPA 8.5</span>
+      <span class="w">Jul 2022 — Jun 2024</span>
+    </div>
+    <div>
+      <span class="s">IIT Madras</span>
+      <span class="d">BS Data Science &amp; Applications (online)</span>
+      <span class="w">Dec 2020 — Jan 2024</span>
+    </div>
+    <div>
+      <span class="s">SASTRA Deemed University</span>
+      <span class="d">B.Tech Mechanical Engineering · CGPA 8.0</span>
+      <span class="w">Apr 2018 — Jun 2022</span>
+    </div>
+  </div>
+</section>
+
+<section id="repos" class="wrap" style="padding-top:72px">
+  <div class="eyebrow"><span><span class="n">// 02</span> repos</span></div>
+  <div class="section-head">
+    <h2 class="display">Every repo has a dossier.</h2>
+    <p class="lede">Open one to read the scope, the plain-English README, the numbers it produced, and the write-ups that came out of it. Built to be read by a researcher and by a recruiter in the same visit.</p>
+  </div>
+
+  <div class="repogrid" id="repogrid"></div>
+
+  <div class="repofoot">
+    <p>Also public: PatchHawk (GRPO in a Docker sandbox), ArxivSage, LEANN, parameter-golf, simple_yolo_detr, FineTuning-LLMs, XF-ocr.</p>
+    <a class="arrow-link" href="https://github.com/ramprasathk07?tab=repositories" target="_blank" rel="noreferrer">all 30 repos on github <span class="a">→</span></a>
+  </div>
+</section>
+
+<section id="writing" class="wrap" style="padding-top:76px">
+  <div class="eyebrow"><span><span class="n">// 03</span> writing</span></div>
+  <div class="section-head">
+    <h2 class="display">Written while building them.</h2>
+    <p class="lede">Five published on Medium so far, nineteen mapped across ten repos. Each one opens from its repo's dossier, so the code and the argument stay together.</p>
+  </div>
+
+  <div class="writing">
+    <div class="post">
+      <div class="cover"><a href="https://medium.com/@ramk612000/part-1-the-plan-and-the-first-head-to-head-moe-vs-diff-moe-c89a62ab4e66" target="_blank" rel="noreferrer"><img src="https://miro.medium.com/v2/resize:fit:640/1*BhGLoZQrBNnyyNxpu-zImw.png" alt=""></a></div>
+      <div>
+        <div class="topic">Differential-MoE · part 01</div>
+        <a class="t" href="https://medium.com/@ramk612000/part-1-the-plan-and-the-first-head-to-head-moe-vs-diff-moe-c89a62ab4e66" target="_blank" rel="noreferrer">The plan, and the first head-to-head: MoE vs Diff-MoE</a>
+        <p class="d">Build log, post 1 of 3. What this project is trying to find out, how it is set up so the answer means something, and the first real result.</p>
+        <div class="m">Aug 3 · 14 min</div>
+      </div>
+    </div>
+    <div class="post">
+      <div class="cover"><a href="https://medium.com/@ramk612000/part-2-i-wrote-the-fix-the-run-never-used-it-95c9c2432ddb" target="_blank" rel="noreferrer"><img src="https://miro.medium.com/v2/resize:fit:640/1*EGyeICoxvct_aKbwLFvU_A.png" alt=""></a></div>
+      <div>
+        <div class="topic">IssueFix-RL · part 02</div>
+        <a class="t" href="https://medium.com/@ramk612000/part-2-i-wrote-the-fix-the-run-never-used-it-95c9c2432ddb" target="_blank" rel="noreferrer">I wrote the fix. The run never used it.</a>
+        <p class="d">Continuation of the post-mortem: same model, same bug family, one new twist — this time the fix existed in the codebase, it just was not in the config the job ran with.</p>
+        <div class="m">Jul 15 · 13 min</div>
+      </div>
+    </div>
+    <div class="post">
+      <div class="cover"><a href="https://medium.com/@ramk612000/my-loss-curve-said-0-027-my-model-wouldnt-stop-talking-part-i-6fd58780f8dc" target="_blank" rel="noreferrer"><img src="https://miro.medium.com/v2/resize:fit:640/1*hMMWyUrlGFAmptdv3_Rsfg.png" alt=""></a></div>
+      <div>
+        <div class="topic">IssueFix-RL · part 01</div>
+        <a class="t" href="https://medium.com/@ramk612000/my-loss-curve-said-0-027-my-model-wouldnt-stop-talking-part-i-6fd58780f8dc" target="_blank" rel="noreferrer">My loss curve said 0.027. My model wouldn't stop talking.</a>
+        <p class="d">A finetuning post-mortem, or: how a dashboard lied to me for three epochs.</p>
+        <div class="m">Jul 11 · 10 min</div>
+      </div>
+    </div>
+    <div class="post">
+      <div class="cover"><a href="https://medium.com/@ramk612000/fine-tuning-a-30b-hybrid-mamba-moe-on-one-gpu-a-technical-post-mortem-f847b59155cf" target="_blank" rel="noreferrer"><img src="https://miro.medium.com/v2/resize:fit:640/1*YLoBbV2yUAEfuEtQeIFbNA.png" alt=""></a></div>
+      <div>
+        <div class="topic">Kaggle-Nemotron · post 01</div>
+        <a class="t" href="https://medium.com/@ramk612000/fine-tuning-a-30b-hybrid-mamba-moe-on-one-gpu-a-technical-post-mortem-f847b59155cf" target="_blank" rel="noreferrer">Fine-Tuning a 30B Hybrid-Mamba MoE on One GPU: A Technical Post-Mortem</a>
+        <p class="d">How we LoRA-tuned NVIDIA's Nemotron-3-Nano-30B-A3B for a deterministic-reasoning benchmark, and the three submission-killing bugs nobody warns you about.</p>
+        <div class="m">Jul 4 · 14 min</div>
+      </div>
+    </div>
+    <div class="post">
+      <div class="cover"><a href="https://medium.com/@ramk612000/chasing-0-90-on-a-30b-reasoning-model-nvidia-nemotron-our-approach-honestly-ef3f7ba12e46" target="_blank" rel="noreferrer"><span class="ph">medium</span></a></div>
+      <div>
+        <div class="topic">Kaggle-Nemotron · post 02</div>
+        <a class="t" href="https://medium.com/@ramk612000/chasing-0-90-on-a-30b-reasoning-model-nvidia-nemotron-our-approach-honestly-ef3f7ba12e46" target="_blank" rel="noreferrer">Chasing 0.90 on a 30B Reasoning Model: Our Approach, Honestly</a>
+        <p class="d">The strategy we walked in with, the wall we hit at 0.85, every regression we earned, and what we would do differently.</p>
+        <div class="m">Jun 28 · 12 min</div>
+      </div>
+    </div>
+    <div class="end">
+      <span>Fourteen more in the pipeline, one to three per repo — each dossier lists its own.</span>
+      <a class="arrow-link" href="https://medium.com/@ramk612000" target="_blank" rel="noreferrer">all posts on medium <span class="a">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="stack" class="wrap" style="padding-top:76px">
+  <div class="eyebrow"><span><span class="n">// 04</span> stack</span></div>
+  <h2 class="display">What I reach for.</h2>
+  <div class="stackgrid">
+    <div class="stackcol">
+      <div class="stackrow"><span class="k">Languages</span><span class="v">Python · C++ · C# · SQL</span></div>
+      <div class="stackrow"><span class="k">Inference</span><span class="v">vLLM · AWQ · GPTQ · SmoothQuant · FP8 · KV-cache optimization · continuous batching · ONNX · TensorRT · TFLite</span></div>
+      <div class="stackrow"><span class="k">Post-training</span><span class="v">SFT · LoRA · QLoRA · DPO · PPO · GRPO · DFT loss · FSDP · Accelerate DDP</span></div>
+      <div class="stackrow"><span class="k">Agentic</span><span class="v">Google ADK · MCP · A2A · ReAct · self-reflection · hierarchical delegation · hybrid RAG</span></div>
+    </div>
+    <div class="stackcol">
+      <div class="stackrow"><span class="k">Backend</span><span class="v">FastAPI · gRPC · PostgreSQL · Redis · Docker · Kubernetes · AWS · Linux · CI/CD</span></div>
+      <div class="stackrow"><span class="k">Observability</span><span class="v">Weights &amp; Biases · MLflow · Langfuse · Prometheus · Grafana · TTFT · TPOT · tokens/sec</span></div>
+      <div class="stackrow"><span class="k">Hardware</span><span class="v">RTX 4090 · RTX 3060 · AMD Instinct MI300X · Kaggle 2×T4 · NXP edge (Android)</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="wrap" style="margin-top:72px">
+  <div class="inner">
+    <div class="eyebrow"><span><span class="n">// 05</span> contact</span></div>
+    <div class="row">
+      <h2>Hit me up if you're shipping LLMs into production.</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <a class="btn btn-primary" href="mailto:ramk612000@gmail.com">email me</a>
+        <a class="btn btn-secondary" href="https://github.com/ramprasathk07" target="_blank" rel="noreferrer">github ↗</a>
+        <a class="btn btn-ghost" href="https://medium.com/@ramk612000" target="_blank" rel="noreferrer">medium ↗</a>
+      </div>
+    </div>
+    <div class="footline">
+      <span>Pune, India · (+91) 9943933752</span>
+      <span>ramk612000@gmail.com</span>
+      <span class="c">© 2026 · ram prasath k</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="backdrop" id="backdrop" hidden>
+  <div class="dossier" role="dialog" aria-modal="true" aria-labelledby="dtitle">
+    <div class="dhead">
+      <div class="r1">
+        <div class="meta">
+          <div class="crumb"><span class="l">// dossier</span><span class="n" id="dcrumb"></span></div>
+          <div class="titles"><h2 id="dtitle"></h2><span class="pill pill-clay" id="dstatus"></span></div>
+          <p class="dek" id="ddek"></p>
+        </div>
+        <button class="closebtn" id="dclose" aria-label="Close dossier">esc ✕</button>
+      </div>
+      <div class="dbar">
+        <div class="dtabs" role="tablist">
+          <button class="dtab" role="tab" data-tab="overview" aria-selected="true">overview &amp; scope</button>
+          <button class="dtab" role="tab" data-tab="readme" aria-selected="false">readme, in plain english</button>
+          <button class="dtab" role="tab" data-tab="blogs" aria-selected="false">write-ups <span id="dwucount"></span></button>
+        </div>
+        <div class="aud">
+          <span class="k">reading as</span>
+          <div class="audtoggle">
+            <button class="audbtn" data-aud="recruiter" aria-pressed="true">recruiter</button>
+            <button class="audbtn" data-aud="researcher" aria-pressed="false">researcher</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dbody">
+      <div class="dmain">
+        <div class="dpane" id="pane-overview"></div>
+        <div class="dpane" id="pane-readme" hidden></div>
+        <div class="dpane" id="pane-blogs" hidden></div>
+      </div>
+      <aside class="daside">
+        <div class="metacard" id="dmeta"></div>
+        <div class="audcard"><div class="l" id="daudlabel"></div><p id="daudtext"></p></div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <a class="btn btn-primary btn-sm btn-block" id="drepo" target="_blank" rel="noreferrer">view code on github ↗</a>
+          <button class="btn btn-secondary btn-sm btn-block" id="dgoblogs">read the write-ups</button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="dnav">
+      <button id="dprev"></button>
+      <span class="c" id="dcount"></span>
+      <button id="dnext"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Repo dossiers. Content synced from each repo's own README and
+   the résumé (RamPrasathK_MLE_01092026). Figures live in
+   assets/figures/, copied from the repos they belong to.
+   ============================================================ */
+var GH = 'https://github.com/ramprasathk07/';
+
+var REPOS = [
+  {
+    num:'01', kind:'serving infrastructure', status:'active', title:'ocr-serving',
+    repoUrl: GH+'ocr-serving',
+    dek:'A streaming OCR service over one VLM, served four ways — vLLM, Triton, Ray Serve and KServe — behind identical pipeline code.',
+    plain:'Upload a PDF and watch the text arrive token by token, then download it as JSON, Markdown or a searchable PDF. The point of the repo is underneath: the same pipeline runs on four different GPU serving stacks without touching the application code, so they can be compared on one workload instead of on marketing pages.',
+    question:'Does the serving stack — not the model — decide the latency you ship, and what does an OCR pipeline cost per page once reliability is non-negotiable?',
+    findings:[
+      {k:'One pipeline, four serving backends',v:'vLLM · Triton · Ray · KServe',note:'application code unchanged across all four; vLLM is the reference implementation, the other three are staged'},
+      {k:'GPU bypass paths before inference',v:'3 fast paths',note:'native text layers, perceptual-hash duplicates and blank pages never reach the GPU'},
+      {k:'Delivery guarantee',v:'at-least-once',note:'Redis consumer groups with acknowledgement, XAUTOCLAIM reclaim on crash, dead-lettering after a retry limit'},
+      {k:'Test coverage over real code paths',v:'160 unit tests',note:'plus a CPU mock engine, so the whole pipeline runs with no GPU and no model weights'},
+      {k:'Benchmark harness',v:'1,000-page corpus',note:'concurrency 1/4/8/16 — TTFT p50/p95/p99, E2E latency, tokens/s, pages/min, cold start at process and pod level'}
+    ],
+    readme:[
+      {n:'01',t:'Accept and queue',b:'FastAPI validates and stores the upload, then a Redis Stream holds the job. Idempotency keys stop a retried upload from being processed twice, and token buckets plus per-tenant quotas apply backpressure before the queue is the thing that fails.'},
+      {n:'02',t:'Classify before you spend a GPU',b:'Each page is checked for an existing text layer, for being a perceptual duplicate of a page already done, and for being blank. Three ways to skip the expensive path, decided per page rather than per document.'},
+      {n:'03',t:'Render and find the layout',b:'Adaptive-DPI rendering, deskew and CLAHE contrast, then DocLayout-YOLO (ONNX) finds regions and oversized ones get tiled — so the model sees pieces it can actually read.'},
+      {n:'04',t:'Infer, stream, stitch',b:'Tiles go to the serving stack over an OpenAI-compatible streaming API; tokens come back through Redis Streams to the client over SSE (resumable via Last-Event-ID) or WebSocket. Regions are stitched, deduplicated and normalised on the way out.'},
+      {n:'05',t:'Emit artifacts and measure',b:'Searchable PDF, JSON and Markdown to blob storage and Postgres. Structured JSON logs correlate on request_id/job_id; Prometheus covers TTFT and page latency histograms, queue depth, engine tokens, retries and rejection reasons, with the Grafana dashboard and alerts provisioned from version control.'}
+    ],
+    scopeIn:[
+      'A complete pipeline: classify → render → layout → inference → stitch → artifacts',
+      'Streaming to the client over SSE and WebSocket, resumable mid-stream',
+      'Failure handling that assumes crashes: reclaim, dead-letter, partial results, graceful drain',
+      'An automated benchmark harness rather than hand-quoted numbers'
+    ],
+    scopeOut:[
+      'Ray Serve, KServe and Triton integrations — staged, weeks 2–4 of the plan',
+      'The comparative numbers themselves: the harness exists, the table is not filled in yet',
+      'Anything beyond the sandboxed document types'
+    ],
+    limits:[
+      'vLLM is the only backend wired end to end today; the four-way comparison this repo exists for has not been run.',
+      'Reported capability is pipeline and reliability work — no throughput claims are published until make report generates them.'
+    ],
+    blogs:[
+      {part:'part 01',title:'One OCR pipeline, four serving stacks',dek:'What actually has to be abstracted for vLLM, Triton, Ray Serve and KServe to be swappable — and what leaks through anyway.',mins:'13 min',state:'draft'},
+      {part:'part 02',title:'The pages that should never reach the GPU',dek:'Native text layers, perceptual-hash duplicates and blank detection: three bypasses that change the cost per document more than any kernel.',mins:'9 min',state:'draft'}
+    ],
+    meta:[
+      {k:'gateway',v:'FastAPI · SSE / WebSocket'},
+      {k:'infrastructure',v:'Redis Streams · PostgreSQL · blob storage'},
+      {k:'serving',v:'vLLM (reference) · Triton · Ray Serve · KServe'},
+      {k:'layout',v:'DocLayout-YOLO (ONNX) · OpenCV · CLAHE'},
+      {k:'observability',v:'Prometheus · Grafana · structured JSON logs'},
+      {k:'deploy',v:'Docker Compose · Kubernetes manifests'}
+    ],
+    tags:['FastAPI','Redis Streams','vLLM','Triton','KServe','Prometheus'],
+    forRecruiter:'The production shape of the OCR work I did at Ninestars, rebuilt in the open: streaming API, queues, quotas, crash recovery, dashboards — and a benchmark harness instead of claims.',
+    forResearcher:'A controlled comparison surface for GPU serving stacks: identical pipeline, identical corpus, identical concurrency sweep, with cold start measured at both process and pod level.',
+    figSrc:'', figCaption:'',
+    roadmap:[
+      {w:'next',t:'Ray Serve and KServe wired to the same pipeline, then Triton.'},
+      {w:'then',t:'Fill docs/comparison.md from make report — TTFT percentiles and goodput per stack.'},
+      {w:'after',t:'Cold-start and autoscaling behaviour under burst load, per stack.'}
+    ]
+  },
+  {
+    num:'02', kind:'inference research', status:'active', title:'TripleQuant-VLM',
+    repoUrl: GH+'TripleQuant-VLM',
+    dek:'Benchmark, compare and evaluate quantization methods and inference engines across models, hardware and workloads — plus TurboQuant, a KV-cache codec written from scratch.',
+    plain:'A large model has to be shrunk before it fits on one desktop GPU, and shrinking changes two things at once: how fast it answers, and how accurate it stays. This repo measures both for every popular shrinking method on the same machine, so picking one stops being folklore. It also ships TurboQuant, a compression scheme for the KV cache — the part that actually runs out of memory first at long context.',
+    question:'Does the quantization format decide inference speed, or does the runtime? And can the KV cache be compressed without the output quietly drifting away from the full-precision model?',
+    findings:[
+      {k:'Same AWQ-W4A16 checkpoint, two runtimes',v:'4.3 → 57.9 tok/s',note:'13.6× from runtime choice alone, weights unchanged — and faster than FP16 itself'},
+      {k:'Resident weights, FP16 → AWQ-W4A16',v:'3.28 → 1.30 GB',note:'unlike speed, the memory saving is real on both runtimes'},
+      {k:'MMLU n=800, paired McNemar vs FP16',v:'AWQ −1.1pp, p = 0.53',note:'163 of 800 answers changed, symmetrically: heavy perturbation, no net loss'},
+      {k:'torchao int4wo, same "4-bit" label',v:'−9.9pp, p < 0.0001',note:'265 answers changed asymmetrically — genuine degradation, different mechanism'},
+      {k:'TurboQuant K8V8 KV codec',v:'4K → 16K context',note:'0.918 top-1 agreement at 16K; below 8 bits the quality cliff is abrupt, not gradual'}
+    ],
+    readme:[
+      {n:'01',t:'Quantize',b:'One YAML per experiment, validated by Pydantic before any weights load. Backends — llm_compressor, NVIDIA ModelOpt, torchao — register through a decorator, so adding a method is one file. VLMs auto-exclude the vision tower from calibration, because quantizing it wrecks image understanding.'},
+      {n:'02',t:'Smoke-test the checkpoint',b:'Generate from it, optionally side by side with the baseline, before spending GPU hours on a full benchmark run.'},
+      {n:'03',t:'Benchmark on both runtimes',b:'Each model/runtime pair runs isolated for OOM safety. HuggingFace supplies perplexity, MMLU with per-question detail and logit-KL; vLLM supplies throughput, TTFT and TPOT. Metric routing respects what each runtime can actually see.'},
+      {n:'04',t:'Report, then test the claim',b:'results/*.json becomes report.md with charts and BEST-FOR verdicts, plus a paired McNemar significance pass. Every result file carries a GPU, driver, CUDA, torch and git snapshot.'},
+      {n:'05',t:'Serve',b:'vllm serve loads the compressed checkpoint directly — no export step for compressed-tensors. This is the point where quantization actually pays.'}
+    ],
+    scopeIn:[
+      'Three quantization backends plus an FP16 baseline behind one registry',
+      'Dual-runtime harness: the same prompts through HF eager and vLLM',
+      'TurboQuant — a KV-cache codec from scratch (random orthogonal rotation + Lloyd-Max codebooks)',
+      'Significance testing on every accuracy claim, not just deltas'
+    ],
+    scopeOut:[
+      'FP8 / NVFP4 serving — needs sm_89+ / Blackwell; the checkpoints export correctly, the GPU is the blocker',
+      'Fused Triton kernels for TurboQuant — the memory win is banked, the latency win is not',
+      'TurboQuant inside vLLM — needs a real attention backend',
+      'Open-loop load testing: goodput, ITL distribution, the QPS saturation knee'
+    ],
+    limits:[
+      'Every latency number is single-request closed-loop, not a serving benchmark.',
+      '"Max context" is the longest full-prefill forward pass that fits in 12 GB — valid as a relative probe under an identical setup, not a serving-capacity figure.',
+      'Teacher-forced perplexity cannot observe KV-cache quantization at all; generation-based agreement replaced it after a compressed model scored bit-identical PPL.'
+    ],
+    blogs:[
+      {part:'part 01',title:'The 13.6× that was never in the weights',dek:'Why an eager-mode benchmark measures your kernel coverage, not the format you quantized to.',mins:'12 min',state:'draft'},
+      {part:'part 02',title:'TurboQuant: rotate first, then Lloyd-Max',dek:'Designing a KV codec around the inner product attention actually consumes, instead of per-vector reconstruction error.',mins:'16 min',state:'draft'},
+      {part:'part 03',title:'Three claims I had to retract',dek:'Each one structurally unsupported: a metric that could not see what it was being used to claim.',mins:'9 min',state:'draft'}
+    ],
+    meta:[
+      {k:'model',v:'Qwen3-1.7B'},
+      {k:'hardware',v:'RTX 3060 12 GB · sm_86 · CUDA 12.8'},
+      {k:'runtimes',v:'HuggingFace eager · vLLM 0.11.2'},
+      {k:'backends',v:'llm_compressor · ModelOpt · torchao'},
+      {k:'evaluation',v:'PPL · MMLU (n=800) · CER/WER · TTFT/TPOT'},
+      {k:'license',v:'Apache 2.0'}
+    ],
+    tags:['AWQ','GPTQ','W4A16','KV cache','vLLM','Lloyd-Max'],
+    forRecruiter:'This is the production call I already make: turning "which quantization do we ship" into a table with confidence intervals, the same work I did on RTX 4090 VLM serving at Ninestars.',
+    forResearcher:'Paired McNemar testing on identical questions, per-question detail, environment provenance on every result, and three retracted claims documented in the README rather than deleted.',
+    figSrc:'assets/figures/runtime_gap.png',
+    figCaption:'Fig. — the same checkpoint on two runtimes: 4.3 tok/s in HF eager, 57.9 tok/s under vLLM Marlin kernels.',
+    fig2Src:'assets/figures/mmlu_significance.png',
+    fig2Caption:'Fig. — MMLU deltas with confidence intervals: only int4wo moves outside noise.',
+    roadmap:[
+      {w:'next',t:'Wire logit_kl and token_agree — the functions work, only the baseline capture loop is missing.'},
+      {w:'then',t:'An open-loop load harness: ITL distribution, E2E percentiles, goodput, QPS saturation knee.'},
+      {w:'after',t:'Per-channel key quantization (KIVI-style) to lift TurboQuant out of its low-bit collapse.'}
+    ]
+  },
+  {
+    num:'03', kind:'architecture ablation', status:'complete', title:'Differential-MoE',
+    repoUrl: GH+'Differential-MOE',
+    dek:'A controlled 2×2 ablation of differential attention × mixture-of-experts — four 379M-parameter transformers at 209M active, one variable at a time, byte-identical training.',
+    plain:'Two fashionable upgrades to the transformer are usually demonstrated one model at a time, every switch on and no baseline. I trained four small models that differ in exactly one thing each — same seed, same data order, same token budget, same eval windows — on a free Kaggle GPU, then opened up the mechanisms to check they help for the reason their papers claim.',
+    question:'Does each mechanism earn its place, does it work for the stated reason, and do the two compose when you stack them?',
+    findings:[
+      {k:'MoE − dense, held-out test',v:'−0.129 nats',note:'better on 96% of individual test windows, in all six corpus domains, at identical active compute'},
+      {k:'Differential attention − dense',v:'−0.028 nats',note:'for a 3.9% throughput cost — the best use of a fixed GPU-hour budget of all four models'},
+      {k:'Mechanism, verified not assumed',v:'r ≈ 0.98',note:'learned λ controls how much attention mass goes negative; the advantage grows with context position (r = −0.88)'},
+      {k:'Stacking both mechanisms',v:'56% recovered',note:'the entire shortfall lives in one domain — child-directed speech — and 400 extra steps barely moved it'},
+      {k:'BLiMP, 67k minimal pairs',v:'70.50% → 71.39%',note:'the perplexity ranking transfers exactly to grammar (r = −0.99)'}
+    ],
+    readme:[
+      {n:'01',t:'Enforce parity in code, not in prose',b:'Differential attention runs half the heads at double width so both variants cost 4·dim² per layer; each expert is dense_inter ÷ top_k so two routed experts sum exactly to the dense FFN they replace. The four cells differ by 0.01–0.04% in active parameters, and tests guard it.'},
+      {n:'02',t:'Tokenize once, verify, then train',b:'Six BabyLM domains packed into one memmapped token stream, 512-token windows, no padding. 2×T4 DDP on Kaggle with auto-resume, W&B tracking, fp16 AMP with the router softmax and λ kept in fp32.'},
+      {n:'03',t:'Run six evaluation passes',b:'Overall quality and per-domain NLL, paired bootstrap CIs with win rates, domain-clustered CIs, position-resolved NLL and frequency deciles, attention statistics, and BLiMP. Four of the six found something a single perplexity number would have got wrong.'},
+      {n:'04',t:'Recompute what the kernel hides',b:'The fused attention kernel never materialises attention weights, so both attention forwards were reimplemented to capture them — verified against the originals to 5×10⁻⁷ — which is how negative attention mass could be measured at all.'}
+    ],
+    scopeIn:[
+      '{standard, differential} attention × {dense, top-2 MoE} — all four cells, complete 2,900-step runs',
+      'Raw vs active parameter accounting, never hand-computed',
+      'Paired and domain-clustered bootstrap over 3,200 identical test windows',
+      'Mechanism analysis: per-layer λ, negative attention mass, effective support, routing health'
+    ],
+    scopeOut:[
+      'Seed variance — one seed per cell is the binding constraint on every small difference',
+      'Contexts beyond 512 tokens, where diff-attn is still gaining at position 500',
+      'A deliberately parity-breaking run to separate "subtraction" from "half the heads"',
+      'An aux_loss_coef sweep — load balancing suppresses the specialization this corpus invites'
+    ],
+    limits:[
+      'One seed per cell (seed=42). Sampling error is ruled out at 19–63σ; seed-to-seed variance is unmeasured.',
+      'Resample domains instead of windows and Diff-MoE − MoE crosses zero — a fact about this corpus mixture, not an architecture-level verdict.',
+      '379M parameters at 209M active, ~15× under Chinchilla-optimal on purpose. Rankings at 1.1 epochs need not hold at five.'
+    ],
+    blogs:[
+      {part:'part 01',title:'The plan, and the first head-to-head: MoE vs Diff-MoE',dek:'Build log, post 1 of 3. What this project is trying to find out, how it is set up so the answer means something, and the first real result.',mins:'14 min',state:'published',date:'Aug 3',url:'https://medium.com/@ramk612000/part-1-the-plan-and-the-first-head-to-head-moe-vs-diff-moe-c89a62ab4e66',cover:'https://miro.medium.com/v2/resize:fit:640/1*BhGLoZQrBNnyyNxpu-zImw.png'},
+      {part:'part 02',title:'The dense pair, and verifying the mechanism',dek:'λ controls negative attention mass; the advantage grows with position. Four links in the chain, each measured on its own.',mins:'17 min',state:'draft'},
+      {part:'part 03',title:'Six evaluation passes, four of which changed a conclusion',dek:'Win rates, domain-clustered error bars, and the exchangeability assumption most benchmarks quietly break.',mins:'11 min',state:'in review'}
+    ],
+    meta:[
+      {k:'models',v:'4 × 379M params · 209M active · 768d × 14 layers'},
+      {k:'corpus',v:'BabyLM · 190M tokens per run · six domains'},
+      {k:'hardware',v:'Kaggle free 2×T4 → eval on RTX 3060'},
+      {k:'statistics',v:'20,000-resample paired + domain-clustered bootstrap'},
+      {k:'tests',v:'parity · causality · router balance · resume'},
+      {k:'license',v:'MIT'}
+    ],
+    tags:['MoE','Differential attention','BabyLM','Bootstrap CI','BLiMP'],
+    forRecruiter:'Evidence I can run a clean experiment on a budget: four trained models, one variable at a time, on free hardware — and a report that says which one to ship and on which axis.',
+    forResearcher:'Parity enforced in code and tested, paired bootstrap with a domain-clustered variant that overturns one comparison, and mechanism verification down to λ and negative attention mass.',
+    figSrc:'assets/figures/fig_p1_val_nll.png',
+    figCaption:'Fig. — validation NLL for the four cells: the 2×2 read at a glance.',
+    fig2Src:'assets/figures/fig_architecture.png',
+    fig2Caption:'Fig. — Diff-MoE, the cell with both mechanisms on; the other three are ablations of it.',
+    roadmap:[
+      {w:'next',t:'A second seed per cell — the one noise source the whole grid leaves unmeasured.'},
+      {w:'then',t:'A deliberately parity-breaking run, to separate subtraction from half the heads.'},
+      {w:'after',t:'Longer contexts, where differential attention is still gaining at position 500.'}
+    ]
+  },
+  {
+    num:'04', kind:'RL post-training', status:'in progress', title:'IssueFix-RL',
+    repoUrl: GH+'IssueFix-RL',
+    dek:'RL post-training for automated code repair — SFT, PPO, GRPO and DR-GRPO on SWE-Bench-style issue fixing, with execution-based rewards.',
+    plain:'Can a half-billion-parameter model learn to fix real GitHub issues? The first full training run looked flawless on the loss curve and was broken in behaviour: the finetuned model stopped writing working code and never stopped generating. This repo is the post-mortem and the rebuild, kept public while it is still wrong.',
+    question:'Which post-training objective actually buys code-fix accuracy per GPU-hour — and does explicit intermediate reasoning help a model understand an issue, plan, and fix it?',
+    findings:[
+      {k:'First full run · 2×T4 DDP, 189 steps, 7.8 h',v:'loss 0.161 → 0.027',note:'validation improved every epoch, and told me nothing about the model I had'},
+      {k:'Behavioural eval, 8 coding tasks',v:'7/8 → 4/7 runs',note:'the finetune made the model worse exactly where the task is defined'},
+      {k:'Stops before the 512-token cap',v:'8/8 → 0/8',note:'92% of samples truncated at max_length 2048 vs a ~4.9k median, so EOS was almost never a training target'},
+      {k:'DFT gradient scales with token probability',v:'p(&lt;think&gt;) ≈ 1e-14',note:'a freshly-initialized special token gets no gradient, and −p·log p → 0 at both extremes hides it from the loss'},
+      {k:'Scheduler prepared through accelerate',v:'LR rebounded to ~max',note:'DDP steps it once per process, so the cosine finished mid-training — size it by steps × num_processes'}
+    ],
+    readme:[
+      {n:'01',t:'Prepare the data',b:'JSONL of prompt/response pairs, responses wrapping reasoning in <think> and code in <answer>. Verify which file you actually loaded — one variant of the same dataset has <think> tags and zero <answer> tags across 10k rows.'},
+      {n:'02',t:'Train',b:'DFT loss on response tokens only, cosine LR, gradient checkpointing, 2×T4 DDP via accelerate, effective batch 64 (4 × 2 GPUs × 8 accumulation). 4-bit loading is off for DDP — bitsandbytes and DDP wrapping do not mix.'},
+      {n:'03',t:'Track intent, not just optimization',b:'W&B and MLflow log loss, entropy, grad norm and LR against optimizer steps. Behavioural evaluation now runs per checkpoint: the loss curve validated optimization, not intent, and that is the whole lesson.'},
+      {n:'04',t:'Verify before you publish',b:'pytest checks required files, tokenizer special tokens, training-state integrity, safetensors readability and sample generations before the best checkpoint is zipped and pushed to Kaggle Models.'}
+    ],
+    scopeIn:[
+      'An SFT baseline with a DFT (RL-inspired) objective, running end to end on free Kaggle GPUs',
+      'Execution-based rewards designed: unit-test pass rate, lint, compilation',
+      'Reasoning-oriented training for code repair — does an explicit plan step help the fix?',
+      'Reproducible tracking — W&B plus MLflow, registry push on best validation loss'
+    ],
+    scopeOut:[
+      'The PPO / GRPO / DR-GRPO arms — designed, not yet run',
+      'A cross-entropy warmup before DFT, so new special tokens can move at all',
+      'max_length raised past the ~4.9k median sample',
+      'End-to-end SWE-Bench-verified scoring'
+    ],
+    limits:[
+      'Published results are one run on 2×T4; the comparison this repo exists for has not been run yet.',
+      'Four of the five findings are bugs in my own pipeline, not properties of the objective.',
+      'The loss is not a valid selection signal here — only the behavioural eval is.'
+    ],
+    blogs:[
+      {part:'part 01',title:'My loss curve said 0.027. My model wouldn’t stop talking.',dek:'A finetuning post-mortem, or: how a dashboard lied to me for three epochs.',mins:'10 min',state:'published',date:'Jul 11',url:'https://medium.com/@ramk612000/my-loss-curve-said-0-027-my-model-wouldnt-stop-talking-part-i-6fd58780f8dc',cover:'https://miro.medium.com/v2/resize:fit:640/1*hMMWyUrlGFAmptdv3_Rsfg.png'},
+      {part:'part 02',title:'I wrote the fix. The run never used it.',dek:'Continuation of the post-mortem: same model, same bug family, one new twist — this time the fix existed.',mins:'13 min',state:'published',date:'Jul 15',url:'https://medium.com/@ramk612000/part-2-i-wrote-the-fix-the-run-never-used-it-95c9c2432ddb',cover:'https://miro.medium.com/v2/resize:fit:640/1*EGyeICoxvct_aKbwLFvU_A.png'}
+    ],
+    meta:[
+      {k:'base model',v:'Qwen2.5-0.5B-Instruct'},
+      {k:'objective',v:'DFT loss · RL-inspired SFT'},
+      {k:'hardware',v:'Kaggle 2×T4 · 15 GB each'},
+      {k:'tracking',v:'Weights & Biases · MLflow'},
+      {k:'artifact',v:'kaggle.com/models/ramprasathk07/issuefix-sft'}
+    ],
+    tags:['GRPO','DFT loss','Accelerate DDP','SWE-Bench','MLflow'],
+    forRecruiter:'How I handle a run that fails quietly: reproduce, root-cause to four specific bugs, and change the loop so the next run cannot fail the same way. The post-mortem is public.',
+    forResearcher:'A worked example of loss-metric blindness under a DFT objective — including why a fresh special token receives no gradient and why that is invisible in the training curve.',
+    figSrc:'assets/figures/training_dynamics.png',
+    figCaption:'Fig. — training dynamics: a clean curve, and a behavioural eval that disagreed with it.',
+    fig2Src:'assets/figures/eval_comparison.png',
+    fig2Caption:'Fig. — behavioural eval, base vs finetuned: where the loss curve and the model disagree.',
+    roadmap:[
+      {w:'next',t:'CE warmup before DFT, max_length past the ~4.9k median, rerun on the correctly tagged dataset.'},
+      {w:'then',t:'The GRPO arm with execution rewards — unit-test pass rate, lint, compilation.'},
+      {w:'after',t:'SWE-Bench-verified scoring end to end, with PPO and DR-GRPO as controls.'}
+    ]
+  },
+  {
+    num:'05', kind:'kernels & serving', status:'active', title:'Tensor-RT-exp',
+    repoUrl: GH+'Tensor-RT-exp',
+    dek:'Qwen3-VL-2B rebuilt from scratch in PyTorch, parity-verified token for token, then split across runtimes: vision encoder on TensorRT, decoder on TRT-LLM.',
+    plain:'To understand how a vision-language model actually runs, I rewrote one from scratch without the usual library, proved it matches the original token for token, and then started serving each half on whichever runtime is fastest for it. Along the way it answers where the time really goes — and where a hand-written GPU kernel would be wasted effort.',
+    question:'Where does the time actually go in a 2B VLM, and which half of it is worth a custom kernel?',
+    findings:[
+      {k:'Standalone implementation vs transformers 5.10.2',v:'bit-exact',note:'vision tower bit-exact, 100% argmax agreement on logits, greedy generation token-for-token identical'},
+      {k:'Vision encoder → TensorRT engine',v:'1.6–2.2× faster',note:'than torch eager — and closer to the fp32 reference than the bf16 pipeline it replaces'},
+      {k:'bf16, the checkpoint dtype',v:'3.4× further from fp32',note:'and 25% slower than fp16: activations stay bounded, so bf16 spends mantissa on range it never uses'},
+      {k:'Engine time breakdown',v:'86% GEMMs',note:'TensorRT already fuses LayerNorm and residuals — custom-kernel headroom is in the decoder, not the vision tower'}
+    ],
+    readme:[
+      {n:'01',t:'Rebuild the model',b:'Config, modeling, weight loading, preprocessing and generation with no transformers at runtime. DeepStack, interleaved M-RoPE and patch ordering are written up in the model README rather than inherited as magic.'},
+      {n:'02',t:'Freeze an oracle',b:'fp32 reference tensors, 3-D M-RoPE positions and greedy generations captured as the baseline every later runtime is scored against — deliberately not the bf16 pipeline, which is itself an approximation.'},
+      {n:'03',t:'Export and build',b:'torch → ONNX → TensorRT engine, with runtime, benchmark and profiler alongside. TensorRT 11 is strongly typed and dropped the FP16/BF16 builder flags, so precision has to come from the exported graph; the torch.export path also produced a 44% smaller graph.'},
+      {n:'04',t:'Measure parity, then speed',b:'HF parity, engine parity and end-to-end token comparison run as tests, so a faster engine that drifts is a failure rather than a win.'}
+    ],
+    scopeIn:[
+      'Standalone Qwen3-VL-2B implementation with parity tests against transformers',
+      'Vision encoder compiled to a TensorRT engine, profiled layer by layer',
+      'A frozen fp32 oracle every runtime is scored against',
+      'A documented kernel-learning roadmap: Triton → CUDA → TileLang'
+    ],
+    scopeOut:[
+      'Decoder on TensorRT-LLM (WSL2) — next up',
+      'The custom kernels themselves',
+      'torch.compile benchmarks on Windows — Triton ships no Windows wheels, so that work belongs in WSL2'
+    ],
+    limits:[
+      'One GPU (RTX 3060, SM 8.6); precision findings are specific to this vision tower’s activation ranges.',
+      'Speed numbers are engine-level, not end-to-end serving throughput.'
+    ],
+    blogs:[
+      {part:'part 01',title:'Strongly typed engines: where FP16 actually comes from',dek:'TensorRT 11 removed the builder flags, so precision now lives in the ONNX you export — and torch.export made the graph 44% smaller.',mins:'9 min',state:'draft'},
+      {part:'part 02',title:'bf16 was the checkpoint dtype and the wrong choice',dek:'Bounded activations, wasted mantissa, and why you score a runtime against fp32 rather than the pipeline you are replacing.',mins:'8 min',state:'draft'}
+    ],
+    meta:[
+      {k:'model',v:'Qwen3-VL-2B-Instruct'},
+      {k:'hardware',v:'RTX 3060 12 GB · SM 8.6'},
+      {k:'runtimes',v:'PyTorch · ONNX · TensorRT · TRT-LLM'},
+      {k:'parity',v:'bit-exact vision tower · fp32 oracle'},
+      {k:'next',v:'decoder on TRT-LLM · Triton kernels'}
+    ],
+    tags:['TensorRT','ONNX','M-RoPE','Triton','TileLang'],
+    forRecruiter:'Low-level serving work with a paper trail: a from-scratch implementation, a compiled engine that is 1.6–2.2× faster, and tests that block a faster-but-wrong runtime from shipping.',
+    forResearcher:'A precision study grounded in an fp32 oracle rather than a bf16 pipeline, with a profile that locates the remaining headroom (86% GEMMs) before any kernel is written.',
+    figSrc:'assets/figures/ctx_sweep.png',
+    figCaption:'Fig. — context sweep: engine-level timings against the frozen fp32 oracle.',
+    roadmap:[
+      {w:'next',t:'Decoder onto TensorRT-LLM in WSL2, scored against the same fp32 oracle.'},
+      {w:'then',t:'Triton kernels for decode attention, where the 86%-GEMM profile says the headroom is.'},
+      {w:'after',t:'CUDA and TileLang ports of the same kernel, for comparison.'}
+    ]
+  },
+  {
+    num:'06', kind:'game AI · hackathon', status:'winner · #1', title:'⚔️ Mistral Raid',
+    repoUrl: GH+'mistral-raid',
+    dek:'A dungeon crawler whose final boss runs on Mistral AI — voice in, personalised taunts and attack mechanics out.',
+    plain:'A playable game where the boss listens to you. It transcribes what you say as you say it, cross-references that against the live state of the fight, and writes its own insults and attack patterns in response. Built for the Mistral AI Worldwide Hackathon 2026 and judged first place in the online track.',
+    question:'Can an LLM sit inside the loop of a real-time game — reading telemetry and generating mechanics — without breaking the frame budget?',
+    findings:[
+      {k:'Mistral AI Worldwide Hackathon 2026',v:'#1, online track',note:'four models driving four cooperating agents'},
+      {k:'Voice to boss reaction',v:'Voxtral realtime STT',note:'continuous transcription, no push-to-talk; ElevenLabs voices the boss’s reply'},
+      {k:'Telemetry pipeline',v:'position · health · cooldowns',note:'structured combat state streamed to the agents each beat, so taunts reference what just happened'}
+    ],
+    readme:[
+      {n:'01',t:'Listen',b:'Voxtral realtime STT transcribes the player continuously, so the boss reacts to speech rather than to a command menu.'},
+      {n:'02',t:'Cross-reference',b:'What you said is checked against structured combat telemetry — map position, health, recent damage — before anything is generated, which is what keeps the taunts specific instead of generic.'},
+      {n:'03',t:'Respond in character',b:'Four Mistral models drive four agents: taunt writing, attack mechanics, narration and state tracking. ElevenLabs voices the result, Phaser 3 renders the fight.'}
+    ],
+    scopeIn:[
+      'A complete playable build, shipped inside the hackathon window',
+      'Realtime voice in, generated mechanics out',
+      'Four-agent split so each model has one narrow job'
+    ],
+    scopeOut:[
+      'Balance tuning beyond the demo encounter',
+      'On-device inference — it calls hosted Mistral endpoints',
+      'Persistence between runs'
+    ],
+    limits:[],
+    blogs:[
+      {part:'write-up',title:'Building a boss that hears you, in 36 hours',dek:'Four agents, one telemetry bus, and the latency budget that decides what an LLM is allowed to do mid-fight.',mins:'11 min',state:'draft'}
+    ],
+    meta:[
+      {k:'stack',v:'Mistral LLM ×4 · Voxtral STT · ElevenLabs · Phaser 3'},
+      {k:'result',v:'#1, online track · Mistral Worldwide Hackathon 2026'},
+      {k:'built with',v:'team repo at fahmitech/mistral-raid'}
+    ],
+    tags:['Mistral','Voxtral','Realtime','Game AI','Phaser 3'],
+    forRecruiter:'Shipped, judged, and first place: real-time voice AI wired into a game loop in a weekend — the same instinct I apply to Game AI R&D at Ubisoft.',
+    forResearcher:'A latency-bounded agent architecture: structured telemetry grounding generation, with each model constrained to one role rather than one prompt doing everything.',
+    figSrc:'assets/figures/game-intro.png',
+    figCaption:'Fig. — the encounter the boss fights you in.',
+    roadmap:[
+      {w:'next',t:'Local Voxtral, so the whole loop runs offline.'},
+      {w:'then',t:'A second encounter, and balance tuning past the demo boss.'}
+    ]
+  },
+  {
+    num:'07', kind:'multi-agent security', status:'self-hosted', title:'🛡️ Sentinel-AI',
+    repoUrl: GH+'Sentinel-AI-Prod',
+    dek:'Autonomous supply-chain security for every pull request — eight agents across detect → validate → patch, on your own infrastructure.',
+    plain:'A team of small AI agents that reviews every pull request for security problems, tries the fix inside a sandbox, and only reports what it could actually prove. Nothing leaves your machines, because the models are self-hosted.',
+    question:'How much of a security review can be delegated to agents if every finding has to be validated by execution before anyone sees it?',
+    findings:[
+      {k:'Eight specialized agents',v:'detect → validate → patch',note:'coordinated as one immune system per pull request, each with a narrow brief'},
+      {k:'Deployment',v:'100% own infrastructure',note:'Ollama or self-hosted vLLM — no code or dependency graph leaves the network'},
+      {k:'Companion project · PatchHawk',v:'GRPO in a Docker sandbox',note:'the reward is tied to whether the generated patch actually passes, not to how the patch looks'}
+    ],
+    readme:[
+      {n:'01',t:'Detect',b:'Agents fan out over the dependency graph and the diff, each with a narrow brief, so every finding is attributable to a single reviewer rather than to one opaque pass.'},
+      {n:'02',t:'Validate',b:'Each candidate finding is reproduced inside an isolated Docker sandbox. Anything that cannot be reproduced is not reported — which is what makes the report readable at all.'},
+      {n:'03',t:'Patch',b:'A verified, syntactically correct patch is generated and re-run against the sandbox before it reaches the pull request, so review time goes to judgement rather than triage.'}
+    ],
+    scopeIn:[
+      'Eight-agent pipeline over detect, validate and patch',
+      'Validation by execution inside isolated Docker sandboxes',
+      'Fully self-hosted model serving (Ollama / vLLM), agent-to-agent messaging over A2A',
+      'PatchHawk: GRPO post-training with execution-grounded rewards'
+    ],
+    scopeOut:[
+      'Hosted / SaaS deployment',
+      'Language coverage beyond the sandboxed toolchains',
+      'Human-in-the-loop review UI'
+    ],
+    limits:[],
+    blogs:[
+      {part:'write-up',title:'Eight agents as an immune system for your PRs',dek:'Why validation-by-execution, not a bigger model, is what makes an agentic security report worth reading.',mins:'12 min',state:'draft'}
+    ],
+    meta:[
+      {k:'stack',v:'Google ADK · A2A · Ollama · vLLM'},
+      {k:'deployment',v:'self-hosted, air-gap friendly'},
+      {k:'companion',v:'PatchHawk — GRPO · OpenEnv · Docker sandbox'}
+    ],
+    tags:['Multi-agent','Google ADK','A2A','GRPO','Docker sandbox'],
+    forRecruiter:'Agentic systems with a compliance story: self-hosted models, execution-validated findings, and a patch that has already been run before a human reads it.',
+    forResearcher:'An execution-grounded agent pipeline where the reward and the report share the same verifier — the design PatchHawk then optimizes with GRPO.',
+    figSrc:'',
+    roadmap:[
+      {w:'next',t:'PatchHawk’s GRPO-trained patcher wired into the Sentinel loop.'},
+      {w:'then',t:'Coverage beyond the currently sandboxed toolchains.'},
+      {w:'after',t:'A review surface for the human who signs off.'}
+    ]
+  },
+  {
+    num:'08', kind:'GPU kernels', status:'active', title:'Triton-practice',
+    repoUrl: GH+'Triton-practice',
+    dek:'Five softmax implementations, pure PyTorch to custom Triton kernels, benchmarked against each other on latency, bandwidth and precision.',
+    plain:'Softmax is one line of PyTorch and four separate trips to GPU memory. This repo rewrites it four different ways in Triton and measures what each one actually costs — the small, boring kernel where you learn why fused kernels win, and exactly where they stop winning.',
+    question:'Where does a hand-written Triton kernel beat PyTorch, and at what shape does each strategy fall over?',
+    findings:[
+      {k:'Naive PyTorch softmax at cols = 65536',v:'~4 ms',note:'four separate CUDA launches per call — four memory round-trips, never above ~80 GB/s'},
+      {k:'Fused flatten / grid kernels',v:'~320 GB/s',note:'single read, single write; both beat torch at every cols ≥ 512'},
+      {k:'flatten at cols ≥ 32768',v:'collapses',note:'128 KB of register pressure; the grid variant holds ~250 GB/s on explicit stride indexing'},
+      {k:'Online two-pass tiled softmax',v:'~215 GB/s',note:'3N vs 2N DRAM traffic — 215/320 ≈ 2/3, exactly the traffic ratio predicts'},
+      {k:'fp16 vs fp32 at this size',v:'0.6–1.05×',note:'no kernel reaches 2×; torch fp16 is slower because it upcasts internally for stability'}
+    ],
+    readme:[
+      {n:'01',t:'Write it naively first',b:'Pure PyTorch: separate max, exp, sum and divide. It is the baseline every kernel has to beat, and it never exceeds ~80 GB/s because each op is its own dispatch.'},
+      {n:'02',t:'Fuse it',b:'One Triton program per row, single pass. Two variants — reshape to (rows, cols), or an explicit (batch, rows) 2D grid with stride-based indexing. Same block size, very different behaviour once registers run short.'},
+      {n:'03',t:'Tile it',b:'The online variant runs two passes with a running max and sum (d_new = d·exp(m − m_new) + Σ exp(tile − m_new)), so an arbitrarily wide row never has to sit in SRAM at once.'},
+      {n:'04',t:'Benchmark honestly',b:'One script sweeps sequence length, row count and dtype, then writes the plots. Every claim in the README is read off those sweeps — including the ones where my kernel lost.'}
+    ],
+    scopeIn:[
+      'Four softmax kernels plus the PyTorch baseline, one benchmark harness',
+      'Sweeps over sequence length, parallelism (row count) and fp16 vs fp32',
+      'Bandwidth accounting that explains each plateau rather than just reporting it'
+    ],
+    scopeOut:[
+      'Fused attention and flash variants — the next step from here',
+      'Autotuned block sizes instead of hand-picked ones',
+      'Tensor sizes large enough for fp16 to become bandwidth-bound'
+    ],
+    limits:[
+      'All numbers are B=8, R=64 (512 rows), fp32 unless stated — small tensors, so launch overhead and exp compute dominate bandwidth.',
+      'Single GPU, no persistent-kernel or multi-GPU variants.'
+    ],
+    blogs:[
+      {part:'part 01',title:'Four ways to write softmax, and what each one costs',dek:'Fused single-pass versus online two-pass, and the 2/3 bandwidth ratio you can predict before running anything.',mins:'10 min',state:'draft'},
+      {part:'part 02',title:'Why fp16 bought me nothing',dek:'A kernel is only bandwidth-bound at scale — at 1–8 MB, exp compute and launch latency set the ceiling.',mins:'7 min',state:'draft'}
+    ],
+    meta:[
+      {k:'kernels',v:'naive · flatten · grid · online tiled'},
+      {k:'config',v:'B=8 · R=64 · fp32 and fp16 sweeps'},
+      {k:'peak',v:'~320 GB/s fused · ~215 GB/s online'},
+      {k:'output',v:'benchmark.py → softmax/plots/'}
+    ],
+    tags:['Triton','Softmax','Bandwidth','fp16','CUDA'],
+    forRecruiter:'The groundwork under the serving numbers: I can read a profile, predict a bandwidth ceiling, and say when a custom kernel is not worth writing.',
+    forResearcher:'Every plateau is explained by a traffic model (3N vs 2N) and confirmed by sweep, including the negative result that fp16 buys nothing at this tensor size.',
+    figSrc:'assets/figures/benchmark_results.png',
+    figCaption:'Fig. — latency and achieved bandwidth against sequence length, five implementations.',
+    fig2Src:'assets/figures/benchmark_fp16_speedup.png',
+    fig2Caption:'Fig. — fp16 speedup ratio: no kernel reaches the ideal 2×.',
+    roadmap:[
+      {w:'next',t:'Fused attention and flash variants, through the same benchmark harness.'},
+      {w:'then',t:'Autotuned block sizes instead of hand-picked ones.'},
+      {w:'after',t:'Tensors large enough that fp16 finally becomes bandwidth-bound.'}
+    ]
+  },
+  {
+    num:'09', kind:'fine-tuning · Kaggle', status:'published', title:'Kaggle-Nemotron',
+    repoUrl: GH+'Kaggle-Nemotron',
+    dek:'LoRA-tuning NVIDIA’s Nemotron-3-Nano-30B-A3B — a hybrid Mamba MoE — on a single GPU for a deterministic-reasoning benchmark.',
+    plain:'A 30-billion-parameter reasoning model, one GPU, and a leaderboard. We got it to 0.85 and then hit a wall; the two write-ups are the honest version of that run — the strategy we walked in with, every regression we earned, and the three bugs that quietly kill a submission.',
+    question:'How far can a 30B hybrid-Mamba MoE be pushed on a deterministic-reasoning benchmark with LoRA on one GPU — and where does the ceiling actually come from?',
+    findings:[
+      {k:'Nemotron-3-Nano-30B-A3B, LoRA on one GPU',v:'0.85 reasoning',note:'the wall we hit, and the regressions earned on the way to it'},
+      {k:'Submission pipeline',v:'Unsloth · LoRA r32 · vLLM',note:'RSLoRA fine-tune on ~7.5k logic, math and bit-manipulation puzzles, auto-packaged for submission'},
+      {k:'Post-mortem',v:'3 submission-killing bugs',note:'the kind nobody warns you about until the leaderboard rejects the run'}
+    ],
+    readme:[
+      {n:'01',t:'Curate the puzzles',b:'Around 7,500 logic, math and bit-manipulation problems, filtered for deterministic answers so the benchmark can actually be scored.'},
+      {n:'02',t:'Tune what fits',b:'Unsloth with LoRA (rank 32, RSLoRA) over a hybrid Mamba MoE — the only configuration that fits a 30B model and its optimizer state on one GPU.'},
+      {n:'03',t:'Package for the leaderboard',b:'A vLLM submission pipeline with auto-packaging, because the last mile is where the three bugs in the post-mortem live.'}
+    ],
+    scopeIn:[
+      'LoRA / RSLoRA fine-tuning of a 30B hybrid Mamba MoE on a single GPU',
+      'Deterministic-reasoning dataset curation',
+      'A vLLM submission pipeline with automatic packaging',
+      'Two published post-mortems, written while it was still going wrong'
+    ],
+    scopeOut:[
+      'Full fine-tuning — never an option at this size on this hardware',
+      'The 0.90 target: reached 0.85 and documented why',
+      'GRPO on top of the LoRA run'
+    ],
+    limits:[
+      'A competition run, not a controlled study: several changes moved at once between submissions.'
+    ],
+    blogs:[
+      {part:'post 01',title:'Fine-Tuning a 30B Hybrid-Mamba MoE on One GPU: A Technical Post-Mortem',dek:'How we LoRA-tuned NVIDIA’s Nemotron-3-Nano-30B-A3B for a deterministic-reasoning benchmark, and the three submission-killing bugs nobody warns you about.',mins:'14 min',state:'published',date:'Jul 4',url:'https://medium.com/@ramk612000/fine-tuning-a-30b-hybrid-mamba-moe-on-one-gpu-a-technical-post-mortem-f847b59155cf',cover:'https://miro.medium.com/v2/resize:fit:640/1*YLoBbV2yUAEfuEtQeIFbNA.png'},
+      {part:'post 02',title:'Chasing 0.90 on a 30B Reasoning Model: Our Approach, Honestly',dek:'The strategy we walked in with, the wall we hit at 0.85, every regression we earned, and what we would do differently.',mins:'12 min',state:'published',date:'Jun 28',url:'https://medium.com/@ramk612000/chasing-0-90-on-a-30b-reasoning-model-nvidia-nemotron-our-approach-honestly-ef3f7ba12e46'}
+    ],
+    meta:[
+      {k:'model',v:'Nemotron-3-Nano-30B-A3B · hybrid Mamba MoE'},
+      {k:'method',v:'Unsloth · LoRA rank 32 · RSLoRA'},
+      {k:'data',v:'~7.5k logic / math / bit-manipulation puzzles'},
+      {k:'serving',v:'vLLM submission pipeline'},
+      {k:'result',v:'0.85 on the reasoning benchmark'}
+    ],
+    tags:['Nemotron 30B','Unsloth','LoRA','RSLoRA','vLLM'],
+    forRecruiter:'A 30B model tuned and shipped on one GPU under competition deadlines — and a public post-mortem when it stalled at 0.85 instead of a quiet deletion.',
+    forResearcher:'Two write-ups documenting the failure modes of LoRA on a hybrid Mamba MoE, including submission-pipeline bugs that never show up in the training metrics.',
+    figSrc:'',
+    roadmap:[
+      {w:'next',t:'A GRPO arm on top of the LoRA run, with the deterministic scorer as the reward.'},
+      {w:'then',t:'A synthetic generator for the cryptarithm tail, where 627 rows collapse to 54 unique problems.'}
+    ]
+  },
+  {
+    num:'10', kind:'from scratch', status:'learning build', title:'Mini-LLaMa From Scratch',
+    repoUrl: GH+'Mini-LLaMa-From-Scratch',
+    dek:'A character-level LLaMa built from the paper up — RMSNorm, RoPE multi-head attention, SwiGLU — small enough to read in one sitting.',
+    plain:'The smallest honest version of a modern LLM: a 65-token character vocabulary, 128-dimensional model, eight heads, a 32-token context. Every part LLaMa is known for is written out by hand instead of imported, which is the whole point — this one exists to be read, not served.',
+    question:'What is the minimum code that still deserves to be called a LLaMa, and what does each of its pieces actually do?',
+    findings:[
+      {k:'Architecture, hand-written',v:'RMSNorm · RoPE · SwiGLU',note:'rotary masked multi-head attention and the gated feed-forward implemented in one utils file, not imported'},
+      {k:'Model size',v:'d_model 128 · 8 heads · ctx 32',note:'character-level, vocab 65 — trains on CPU-class hardware'},
+      {k:'Training loop',v:'AdamW · 10 epochs',note:'per-epoch validation loss, ETA line, loss curves plotted, state_dict and full-model checkpoints'}
+    ],
+    readme:[
+      {n:'01',t:'Read the parts',b:'RMSNorm, rotary position embedding inside masked multi-head attention, and SwiGLU sit together in one utils file so each can be read against its equation.'},
+      {n:'02',t:'Assemble the block',b:'Embedding → norm → RoPE attention (residual) → norm → linear + SwiGLU (residual) → output projection, with cross-entropy against shifted targets.'},
+      {n:'03',t:'Train and watch it',b:'A config-driven loop with AdamW and an optional scheduler, logging train and validation loss per epoch to file and plotting both at the end.'}
+    ],
+    scopeIn:[
+      'A complete, readable LLaMa-style model in four files',
+      'RoPE, RMSNorm and SwiGLU written by hand',
+      'A training and evaluation loop small enough to step through line by line'
+    ],
+    scopeOut:[
+      'Grouped-query attention and KV caching',
+      'A real tokenizer — character-level is deliberate',
+      'Any claim about matching LLaMa at scale'
+    ],
+    limits:[
+      'A learning build: not tuned, not benchmarked, and not meant to be compared against a real checkpoint.'
+    ],
+    blogs:[
+      {part:'write-up',title:'RoPE, RMSNorm and SwiGLU, written out by hand',dek:'The three pieces that separate a LLaMa block from a vanilla transformer, in the smallest code that still runs.',mins:'9 min',state:'draft'}
+    ],
+    meta:[
+      {k:'model',v:'char-level · vocab 65 · d_model 128 · 8 heads'},
+      {k:'context',v:'32 tokens'},
+      {k:'optimizer',v:'AdamW · 10 epochs'},
+      {k:'files',v:'model.py · train.py · dataset.py · eval.py'}
+    ],
+    tags:['PyTorch','RoPE','RMSNorm','SwiGLU','From scratch'],
+    forRecruiter:'Proof I know these models from the inside — the components I later quantize and serve, written by hand first.',
+    forResearcher:'A minimal, readable reference implementation of the LLaMa block, usable for teaching or ablation-by-editing.',
+    figSrc:'',
+    roadmap:[
+      {w:'next',t:'Grouped-query attention and a KV cache.'},
+      {w:'then',t:'A real tokenizer, and an honest comparison against a small LLaMa checkpoint.'}
+    ]
+  }
+];
+
+/* ---------------- helpers ---------------- */
+function esc(s){ return String(s == null ? '' : s).replace(/&(?![a-z]+;|#)/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function el(html){ var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+var N = REPOS.length;
+
+/* ---------------- repo grid ---------------- */
+(function renderGrid(){
+  var grid = document.getElementById('repogrid');
+  REPOS.forEach(function(r, i){
+    var pubs = r.blogs.filter(function(b){ return b.state === 'published'; }).length;
+    var count = r.blogs.length + ' write-up' + (r.blogs.length === 1 ? '' : 's') + (pubs ? ' · ' + pubs + ' published' : '');
+    var pillClass = r.status === 'winner · #1' ? 'pill-ink' : (r.status === 'complete' || r.status === 'self-hosted' || r.status === 'learning build' || r.status === 'published' ? 'pill-mute' : 'pill-clay');
+    var card = el(
+      '<button class="repocard" type="button" data-i="' + i + '">' +
+        '<div class="top"><span class="num">' + esc(r.num) + ' · ' + esc(r.kind) + '</span>' +
+        '<span class="pill ' + pillClass + '">' + esc(r.status) + '</span></div>' +
+        '<h3>' + esc(r.title) + '</h3>' +
+        '<p>' + esc(r.dek) + '</p>' +
+        '<div class="tags">' + r.tags.slice(0,4).map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>' +
+        '<div class="foot"><span class="c">' + esc(count) + '</span><span class="o">open dossier →</span></div>' +
+      '</button>'
+    );
+    card.addEventListener('click', function(){ open(i, 'overview'); });
+    grid.appendChild(card);
+  });
+})();
+
+/* ---------------- dossier ---------------- */
+var state = { sel: null, tab: 'overview', aud: 'recruiter' };
+var backdrop = document.getElementById('backdrop');
+
+function figureHTML(src, caption){
+  if (!src) return '';
+  return '<figure class="fig"><div class="frame"><img src="' + esc(src) + '" alt="' + esc(caption || '') + '" loading="lazy"></div>' +
+         (caption ? '<figcaption>' + esc(caption) + '</figcaption>' : '') + '</figure>';
+}
+
+function renderOverview(r){
+  var findings = r.findings.map(function(f){
+    return '<div class="finding"><div><div class="k">' + esc(f.k) + '</div><div class="note">' + esc(f.note) + '</div></div><div class="v">' + esc(f.v) + '</div></div>';
+  }).join('');
+  var scopeIn = r.scopeIn.map(function(s){ return '<div class="bullet"><span class="m">▸</span><span>' + esc(s) + '</span></div>'; }).join('');
+  var scopeOut = r.scopeOut.map(function(s){ return '<div class="bullet out"><span class="m">—</span><span>' + esc(s) + '</span></div>'; }).join('');
+  var road = (r.roadmap || []).map(function(p){ return '<div class="road"><span class="w">' + esc(p.w) + '</span><span class="t">' + esc(p.t) + '</span></div>'; }).join('');
+  return '' +
+    '<div class="callout"><div class="lbl">the idea, in one paragraph</div><p>' + esc(r.plain) + '</p></div>' +
+    '<div class="blk"><div class="lbl">the question it answers</div><p class="question">' + esc(r.question) + '</p></div>' +
+    '<div class="blk"><div class="lbl">what came out of it</div><div style="margin-top:8px">' + findings + '</div></div>' +
+    '<div class="scopes"><div class="blk"><div class="lbl">in scope</div><div class="bullets">' + scopeIn + '</div></div>' +
+    '<div class="blk"><div class="lbl">deliberately not, yet</div><div class="bullets">' + scopeOut + '</div></div></div>' +
+    (road ? '<div class="blk"><div class="roadhead"><span class="l">next up</span><span class="s">from the live plan, not a wishlist</span></div><div style="margin-top:10px">' + road + '</div></div>' : '') +
+    figureHTML(r.figSrc, r.figCaption);
+}
+
+function renderReadme(r){
+  var steps = r.readme.map(function(s){
+    return '<div class="step"><span class="n">' + esc(s.n) + '</span><div><div class="t">' + esc(s.t) + '</div><p>' + esc(s.b) + '</p></div></div>';
+  }).join('');
+  var limits = (r.limits && r.limits.length)
+    ? '<div class="callout info"><div class="lbl">how to read these numbers</div>' +
+      r.limits.map(function(l){ return '<div class="bullet"><span class="m">▸</span><span>' + esc(l) + '</span></div>'; }).join('') + '</div>'
+    : '';
+  return '' +
+    '<div class="blk"><div class="lbl">how it actually works</div>' +
+    '<p style="font-family:var(--font-serif);font-size:19px;line-height:1.7;color:var(--ink-muted);margin:12px 0 0;max-width:62ch">The README, unpacked into the order you would run it in.</p></div>' +
+    '<div>' + steps + '</div>' +
+    figureHTML(r.fig2Src, r.fig2Caption) + limits;
+}
+
+function renderBlogs(r){
+  var rows = r.blogs.map(function(b){
+    var cover = b.cover
+      ? '<a href="' + esc(b.url) + '" target="_blank" rel="noreferrer"><img src="' + esc(b.cover) + '" alt="" loading="lazy"></a>'
+      : '<div class="ph">' + esc(b.state) + '</div>';
+    var title = b.url
+      ? '<a class="t" href="' + esc(b.url) + '" target="_blank" rel="noreferrer">' + esc(b.title) + '</a>'
+      : '<span class="t">' + esc(b.title) + '</span>';
+    var meta = (b.date ? esc(b.date) + ' · ' : '') + esc(b.mins) + (b.state !== 'published' ? ' · ' + esc(b.state) : '');
+    return '<div class="wu"><div class="cover">' + cover + '</div><div class="post">' +
+           '<div class="topic">' + esc(b.part) + '</div>' + title +
+           '<p class="d">' + esc(b.dek) + '</p><div class="m">' + meta + '</div></div></div>';
+  }).join('');
+  return '<div class="blk"><div class="lbl">write-ups from this repo</div><div style="margin-top:16px;border-top:1px solid var(--hairline)">' + rows + '</div>' +
+         '<p style="font-family:var(--font-sans);font-size:13px;color:var(--ink-faint);margin:18px 0 0">Every repo gets its posts on <a href="https://medium.com/@ramk612000" target="_blank" rel="noreferrer">medium.com/@ramk612000</a> — each one links here as it goes live, with the repo\'s own figures inline.</p></div>';
+}
+
+function paint(){
+  var r = REPOS[state.sel];
+  if (!r) return;
+
+  document.getElementById('dcrumb').textContent = r.num + ' / ' + String(N).padStart(2,'0') + ' · ' + r.kind;
+  document.getElementById('dtitle').textContent = r.title;
+  document.getElementById('dstatus').textContent = r.status;
+  document.getElementById('ddek').textContent = r.dek;
+  document.getElementById('dwucount').textContent = '(' + r.blogs.length + ')';
+  document.getElementById('drepo').href = r.repoUrl;
+
+  document.getElementById('pane-overview').innerHTML = renderOverview(r);
+  document.getElementById('pane-readme').innerHTML = renderReadme(r);
+  document.getElementById('pane-blogs').innerHTML = renderBlogs(r);
+
+  ['overview','readme','blogs'].forEach(function(t){
+    document.getElementById('pane-' + t).hidden = (t !== state.tab);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.dtab'), function(b){
+    b.setAttribute('aria-selected', String(b.dataset.tab === state.tab));
+  });
+
+  document.getElementById('dmeta').innerHTML =
+    r.meta.map(function(m){ return '<div class="m"><span class="k">' + esc(m.k) + '</span><span class="v">' + esc(m.v) + '</span></div>'; }).join('') +
+    '<div class="tags">' + r.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>';
+
+  document.getElementById('daudlabel').textContent = state.aud === 'recruiter' ? 'for recruiters' : 'for researchers';
+  document.getElementById('daudtext').textContent = state.aud === 'recruiter' ? r.forRecruiter : r.forResearcher;
+  Array.prototype.forEach.call(document.querySelectorAll('.audbtn'), function(b){
+    b.setAttribute('aria-pressed', String(b.dataset.aud === state.aud));
+  });
+
+  var strip = function(s){ return s.replace(/^[^\w]+\s*/, ''); };
+  document.getElementById('dprev').textContent = '← ' + strip(REPOS[(state.sel - 1 + N) % N].title);
+  document.getElementById('dnext').textContent = strip(REPOS[(state.sel + 1) % N].title) + ' →';
+  document.getElementById('dcount').textContent = r.num + '/' + String(N).padStart(2,'0');
+}
+
+function open(i, tab, skipHash){
+  state.sel = i; state.tab = tab || 'overview';
+  backdrop.hidden = false;
+  document.body.style.overflow = 'hidden';
+  paint();
+  backdrop.scrollTop = 0;
+  if (!skipHash) setHash(REPOS[i].num);
+  document.getElementById('dclose').focus();
+}
+function close(){
+  backdrop.hidden = true;
+  document.body.style.overflow = '';
+  if (state.sel != null){
+    var card = document.querySelector('.repocard[data-i="' + state.sel + '"]');
+    if (card) card.focus();
+  }
+  state.sel = null;
+  if (/^#repo-/.test(location.hash)) setHash('');
+}
+function step(d){ state.sel = (state.sel + d + N) % N; state.tab = 'overview'; paint(); backdrop.scrollTop = 0; setHash(REPOS[state.sel].num); }
+
+/* Dossiers are deep-linkable: #repo-03 opens that dossier directly, so a
+   single project can be shared or bookmarked on its own. */
+function setHash(num){
+  var h = num ? '#repo-' + num : '#repos';
+  if (location.hash !== h) history.replaceState(null, '', h);
+}
+function indexForHash(){
+  var m = /^#repo-(\d+)$/.exec(location.hash);
+  if (!m) return -1;
+  for (var i = 0; i < N; i++) if (REPOS[i].num === m[1]) return i;
+  return -1;
+}
+function syncFromHash(){
+  var i = indexForHash();
+  if (i >= 0) open(i, 'overview', true);
+  else if (!backdrop.hidden) close();
+}
+window.addEventListener('hashchange', syncFromHash);
+syncFromHash();
+
+document.getElementById('dclose').addEventListener('click', close);
+document.getElementById('dprev').addEventListener('click', function(){ step(-1); });
+document.getElementById('dnext').addEventListener('click', function(){ step(1); });
+document.getElementById('dgoblogs').addEventListener('click', function(){ state.tab = 'blogs'; paint(); });
+backdrop.addEventListener('click', function(e){ if (e.target === backdrop) close(); });
+Array.prototype.forEach.call(document.querySelectorAll('.dtab'), function(b){
+  b.addEventListener('click', function(){ state.tab = b.dataset.tab; paint(); });
+});
+Array.prototype.forEach.call(document.querySelectorAll('.audbtn'), function(b){
+  b.addEventListener('click', function(){ state.aud = b.dataset.aud; paint(); });
+});
+document.addEventListener('keydown', function(e){
+  if (backdrop.hidden) return;
+  if (e.key === 'Escape') close();
+  else if (e.key === 'ArrowRight') step(1);
+  else if (e.key === 'ArrowLeft') step(-1);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- @dsCard group="Brand" viewport="700x160" name="Voice & Tone" subtitle="Lowercase mono chrome, plain-spoken serif prose" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 22px 28px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+  .do .lab { color: var(--positive); } .dont .lab { color: var(--clay); }
+  .ex { font-family: var(--font-serif); font-size: 16px; line-height: 1.5; color: var(--ink); }
+  .dont .ex { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--clay); }
+</style>
+</head>
+<body>
+  <div class="pair">
+    <div class="do">
+      <div class="lab">— voice</div>
+      <div class="ex">“I work on the serving layer of modern LLMs.” Direct, first-person, concrete numbers.</div>
+    </div>
+    <div class="dont">
+      <div class="lab">— avoid</div>
+      <div class="ex">“Leveraging cutting-edge synergies to revolutionize AI.”</div>
+    </div>
+  </div>
+</body>
+</html>

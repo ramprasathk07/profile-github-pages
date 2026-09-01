@@ -5,7 +5,7 @@ function BlogIndex({ onOpen }) {
   const featured = POSTS.find(p => p.featured);
   const rest = POSTS.filter(p => !p.featured);
   return (
-    <div style={{ maxWidth: 720, margin: '0 auto', padding: '56px 0 64px' }}>
+    <div style={{ maxWidth: 720, padding: '56px 0 64px' }}>
       <header style={{ marginBottom: 8 }}>
         <div className="ds-eyebrow" style={{ color: 'var(--clay)' }}>writing</div>
         <h1 style={{ fontSize: 'clamp(36px, 5vw, 52px)', fontWeight: 300, letterSpacing: '-0.025em', marginTop: 16, lineHeight: 1.04 }}>
@@ -63,7 +63,7 @@ function BlogPost({ slug, onBack }) {
   };
   const FullPostComponent = FULL_POSTS[slug];
   return (
-    <article style={{ maxWidth: 680, margin: '0 auto', padding: '40px 0 80px' }}>
+    <article style={{ maxWidth: 720, padding: '40px 0 80px' }}>
       <button onClick={onBack} style={{
         appearance: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 0,
         fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--ink-muted)',
@@ -318,7 +318,25 @@ function NemotronPost() {
 
 function Blog() {
   const [slug, setSlug] = React.useState(null);
+  const [, bump] = React.useState(0);
   React.useEffect(() => { window.scrollTo && window.scrollTo(0, 0); }, [slug]);
+
+  // Merge in anything the Medium RSS sync has found that isn't already
+  // hand-curated above. Never touches `featured` — that stays an
+  // editorial call made in this file, not the bot's.
+  React.useEffect(() => {
+    fetch('medium-posts.json').then(r => (r.ok ? r.json() : [])).then(items => {
+      let changed = false;
+      items.forEach(item => {
+        if (!POSTS.some(p => p.mediumUrl === item.mediumUrl)) {
+          POSTS.push({ ...item, featured: false });
+          changed = true;
+        }
+      });
+      if (changed) bump(n => n + 1);
+    }).catch(() => {});
+  }, []);
+
   if (slug) return <BlogPost slug={slug} onBack={() => setSlug(null)} />;
   return <BlogIndex onOpen={setSlug} />;
 }
